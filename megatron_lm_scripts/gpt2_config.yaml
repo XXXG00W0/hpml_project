@@ -1,0 +1,39 @@
+# Configuration file for GPT-2 small
+
+# Model Hyperparameters
+num-layers: 12
+hidden-size: 768
+num-attention-heads: 12
+seq-length: 1024
+max-position-embeddings: 1024
+tensor-model-parallel-size: 1
+pipeline-model-parallel-size: 1
+
+# Training Hyperparameters
+micro-batch-size: 8
+global-batch-size: 64
+train-iters: 50000
+lr: 0.00015
+lr-decay-style: cosine
+min-lr: 1e-5
+lr-warmup-iters: 2000
+weight-decay: 0.01
+adam-beta1: 0.9
+adam-beta2: 0.95
+clip-grad: 1.0
+fp16: true
+
+# Data Parameters
+data-path: "gpt2-small_text_document"
+vocab-file: "../gpt2-small/gpt2-vocab.json"
+merge-file: "../gpt2-small/gpt2-merges.txt"
+data-impl: mmap
+
+# Logging and Checkpointing
+log-interval: 100
+save-interval: 1000
+eval-interval: 1000
+eval-iters: 10
+save: "<path_to_checkpoint>"
+load: "<path_to_checkpoint>"
+tensorboard-dir: "<path_to_tensorboard_logs>"

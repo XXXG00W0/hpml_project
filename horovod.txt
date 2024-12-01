@@ -1,0 +1,486 @@
+ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::TransformerEncoderLayerImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::GRUCellImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::LSTMCellImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::RNNCellImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::GRUImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::LSTMImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::RNNImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::FractionalMaxPool3dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h: In instantiation of 'std::shared_ptr<torch::nn::Module> torch::nn::Cloneable<Derived>::clone(int) const [with Derived = torch::nn::FractionalMaxPool2dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:35:27:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:78:60: error: invalid conversion from 'c10::TensorOptions (*)(c10::Device)' to 'int' [-fpermissive]
+         78 |       copy->children_[child.key()]->clone_(*child.value(), device);
+            |                                                            ^~~~~~
+            |                                                            |
+            |                                                            c10::TensorOptions (*)(c10::Device)
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/cloneable.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/module.h:580:38: note:   initializing argument 2 of 'virtual void torch::nn::Module::clone_(torch::nn::Module&, int)'
+        580 |   virtual void clone_(Module& other, const std::optional<Device>& device);
+            |                                      ^~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'const torch::ExpandingArray<D>& torch::nn::ConvTransposeNdImpl<D, Derived>::padding() const [with long unsigned int D = 3; Derived = torch::nn::ConvTranspose3dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:288:23:   required from 'void torch::nn::ConvTransposeNdImpl<D, Derived>::pretty_print(std::ostream&) const [with long unsigned int D = 3; Derived = torch::nn::ConvTranspose3dImpl; std::ostream = std::basic_ostream<char>]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:282:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:313:61: error: no matching function for call to 'torch::nn::detail::ConvNdOptions<3>::padding() const'
+        313 |     return std::get<ExpandingArray<D>>(this->options.padding());
+            |                                        ~~~~~~~~~~~~~~~~~~~~~^~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader_options.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/base.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:9,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(const int&) [with long unsigned int D = 3; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<3>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(int&&) [with long unsigned int D = 3; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<3>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional/conv.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note: candidate: 'decltype(auto) torch::nn::detail::ConvNdOptions<D>::padding(std::initializer_list<long int>) [with long unsigned int D = 3]'
+         64 |   decltype(auto) padding(std::initializer_list<int64_t> il) {
+            |                  ^~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 3; Derived = torch::nn::ConvTranspose3dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 3; Derived = torch::nn::ConvTranspose3dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'const torch::ExpandingArray<D>& torch::nn::ConvTransposeNdImpl<D, Derived>::padding() const [with long unsigned int D = 2; Derived = torch::nn::ConvTranspose2dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:288:23:   required from 'void torch::nn::ConvTransposeNdImpl<D, Derived>::pretty_print(std::ostream&) const [with long unsigned int D = 2; Derived = torch::nn::ConvTranspose2dImpl; std::ostream = std::basic_ostream<char>]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:282:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:313:61: error: no matching function for call to 'torch::nn::detail::ConvNdOptions<2>::padding() const'
+        313 |     return std::get<ExpandingArray<D>>(this->options.padding());
+            |                                        ~~~~~~~~~~~~~~~~~~~~~^~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader_options.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/base.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:9,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(const int&) [with long unsigned int D = 2; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<2>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(int&&) [with long unsigned int D = 2; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<2>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional/conv.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note: candidate: 'decltype(auto) torch::nn::detail::ConvNdOptions<D>::padding(std::initializer_list<long int>) [with long unsigned int D = 2]'
+         64 |   decltype(auto) padding(std::initializer_list<int64_t> il) {
+            |                  ^~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 2; Derived = torch::nn::ConvTranspose2dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 2; Derived = torch::nn::ConvTranspose2dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'const torch::ExpandingArray<D>& torch::nn::ConvTransposeNdImpl<D, Derived>::padding() const [with long unsigned int D = 1; Derived = torch::nn::ConvTranspose1dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:288:23:   required from 'void torch::nn::ConvTransposeNdImpl<D, Derived>::pretty_print(std::ostream&) const [with long unsigned int D = 1; Derived = torch::nn::ConvTranspose1dImpl; std::ostream = std::basic_ostream<char>]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:282:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:313:61: error: no matching function for call to 'torch::nn::detail::ConvNdOptions<1>::padding() const'
+        313 |     return std::get<ExpandingArray<D>>(this->options.padding());
+            |                                        ~~~~~~~~~~~~~~~~~~~~~^~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader_options.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/base.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data/dataloader.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/data.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:9,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(const int&) [with long unsigned int D = 1; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<1>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note: candidate: 'decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) torch::nn::detail::ConvNdOptions<D>::padding(int&&) [with long unsigned int D = 1; decltype (*(torch::nn::detail::ConvNdOptions<D>*)this) = torch::nn::detail::ConvNdOptions<1>&]'
+         61 |   TORCH_ARG(padding_t, padding) = 0;
+            |   ^~~~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:61:3: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional/conv.h:3,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/functional.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:4,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note: candidate: 'decltype(auto) torch::nn::detail::ConvNdOptions<D>::padding(std::initializer_list<long int>) [with long unsigned int D = 1]'
+         64 |   decltype(auto) padding(std::initializer_list<int64_t> il) {
+            |                  ^~~~~~~
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/options/conv.h:64:18: note:   candidate expects 1 argument, 0 provided
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 1; Derived = torch::nn::ConvTranspose1dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 1; Derived = torch::nn::ConvTranspose1dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 3; Derived = torch::nn::Conv3dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 3; Derived = torch::nn::Conv3dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 2; Derived = torch::nn::Conv2dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 2; Derived = torch::nn::Conv2dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules.h:20,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:7,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h: In instantiation of 'void torch::nn::ConvNdImpl<D, Derived>::reset_parameters() [with long unsigned int D = 1; Derived = torch::nn::Conv1dImpl]':
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:101:5:   required from 'void torch::nn::ConvNdImpl<D, Derived>::reset() [with long unsigned int D = 1; Derived = torch::nn::Conv1dImpl]'
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:33:8:   required from here
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/modules/conv.h:105:27: error: cannot convert 'const torch::enumtype::kFanIn' to 'int'
+        105 |     init::kaiming_uniform_(
+            |     ~~~~~~~~~~~~~~~~~~~~~~^
+            |                           |
+            |                           const torch::enumtype::kFanIn
+        106 |         weight,
+            |         ~~~~~~~
+        107 |         /*a=*/std::sqrt(5)); // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+            |         ~~~~~~~~~~~~~~~~~~~
+      In file included from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn.h:5,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/all.h:16,
+                       from /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/extension.h:5,
+                       from /tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/horovod/torch/mpi_ops_v2.cc:26:
+      /ext3/miniforge3/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/nn/init.h:99:17: note:   initializing argument 3 of 'at::Tensor torch::nn::init::kaiming_uniform_(at::Tensor, double, int, int)'
+         99 |     FanModeType mode = torch::kFanIn,
+            |     ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      gmake[2]: *** [horovod/torch/CMakeFiles/pytorch.dir/build.make:622: horovod/torch/CMakeFiles/pytorch.dir/mpi_ops_v2.cc.o] Error 1
+      gmake[2]: Leaving directory '/tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/build/temp.linux-x86_64-cpython-312/RelWithDebInfo'
+      gmake[1]: *** [CMakeFiles/Makefile2:419: horovod/torch/CMakeFiles/pytorch.dir/all] Error 2
+      gmake[1]: Leaving directory '/tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/build/temp.linux-x86_64-cpython-312/RelWithDebInfo'
+      gmake: *** [Makefile:136: all] Error 2
+      Traceback (most recent call last):
+        File "<string>", line 2, in <module>
+        File "<pip-setuptools-caller>", line 34, in <module>
+        File "/tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/setup.py", line 213, in <module>
+          setup(name='horovod',
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/__init__.py", line 117, in setup
+          return distutils.core.setup(**attrs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 183, in setup
+          return run_commands(dist)
+                 ^^^^^^^^^^^^^^^^^^
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 199, in run_commands
+          dist.run_commands()
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 954, in run_commands
+          self.run_command(cmd)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/dist.py", line 999, in run_command
+          super().run_command(command)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+          cmd_obj.run()
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/command/bdist_wheel.py", line 410, in run
+          self.run_command("build")
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/cmd.py", line 316, in run_command
+          self.distribution.run_command(command)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/dist.py", line 999, in run_command
+          super().run_command(command)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+          cmd_obj.run()
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/command/build.py", line 135, in run
+          self.run_command(cmd_name)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/cmd.py", line 316, in run_command
+          self.distribution.run_command(command)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/dist.py", line 999, in run_command
+          super().run_command(command)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+          cmd_obj.run()
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/command/build_ext.py", line 98, in run
+          _build_ext.run(self)
+        File "/ext3/miniforge3/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py", line 359, in run
+          self.build_extensions()
+        File "/tmp/pip-install-2zbd8bov/horovod_9c62460c21ee4dd195de883cea72b116/setup.py", line 145, in build_extensions
+          subprocess.check_call(command, cwd=cmake_build_dir)
+        File "/ext3/miniforge3/lib/python3.12/subprocess.py", line 413, in check_call
+          raise CalledProcessError(retcode, cmd)
+      subprocess.CalledProcessError: Command '['cmake', '--build', '.', '--config', 'RelWithDebInfo', '--', '-j8', 'VERBOSE=1']' returned non-zero exit status 2.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for horovod
+  Running setup.py clean for horovod
+Failed to build horovod
+ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (horovod)

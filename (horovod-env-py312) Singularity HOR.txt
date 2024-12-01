@@ -1,0 +1,422 @@
+(horovod-env-py312) Singularity> HOROVOD_GPU_OPERATIONS=NCCL \
+HOROVOD_WITH_PYTORCH=1 \
+python setup.py install
+/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/__init__.py:94: _DeprecatedInstaller: setuptools.installer and fetch_build_eggs are deprecated.
+!!
+
+        ********************************************************************************
+        Requirements should be satisfied by a PEP 517 installer.
+        If you are using pip, you can try `pip install --use-pep517`.
+        ********************************************************************************
+
+!!
+  dist.fetch_build_eggs(dist.setup_requires)
+/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'
+  warnings.warn(msg)
+running install
+/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+running bdist_egg
+running egg_info
+creating horovod.egg-info
+writing horovod.egg-info/PKG-INFO
+writing dependency_links to horovod.egg-info/dependency_links.txt
+writing entry points to horovod.egg-info/entry_points.txt
+writing requirements to horovod.egg-info/requires.txt
+writing top-level names to horovod.egg-info/top_level.txt
+writing manifest file 'horovod.egg-info/SOURCES.txt'
+reading manifest file 'horovod.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching '*.hpp' under directory '*'
+no previously-included directories found matching '.eggs'
+warning: no directories found matching 'third_party/eigen/Eigen'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/Eigen'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/IterativeLinearSolvers'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/MetisSupport'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/Sparse'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/SparseCholesky'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/SparseLU'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/src/IterativeSolvers/*'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/src/OrderingMethods/Amd.h'
+warning: no previously-included files found matching 'third_party/eigen/Eigen/src/SparseCholesky/*'
+warning: no previously-included files found matching 'third_party/eigen/unsupported/test/mpreal/mpreal.h'
+warning: no previously-included files found matching 'third_party/eigen/unsupported/Eigen/FFT'
+warning: no previously-included files found matching 'third_party/eigen/unsupported/Eigen/MPRealSupport'
+warning: no previously-included files found matching 'third_party/eigen/doc/PreprocessorDirectives.dox'
+warning: no previously-included files found matching 'third_party/eigen/doc/UsingIntelMKL.dox'
+warning: no previously-included files found matching 'third_party/eigen/doc/SparseLinearSystems.dox'
+warning: no previously-included files found matching 'third_party/eigen/COPYING.GPL'
+warning: no previously-included files found matching 'third_party/eigen/COPYING.LGPL'
+warning: no previously-included files found matching 'third_party/eigen/COPYING.README'
+warning: no directories found matching 'third_party/gloo/cmake'
+warning: no files found matching 'CMakeLists.txt' under directory 'third_party/gloo'
+warning: no files found matching '*.in' under directory 'third_party/gloo'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'horovod.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build/lib.linux-x86_64-cpython-312/horovod
+copying horovod/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod
+creating build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/optimizer.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/mpi_ops.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/sync_batch_norm.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/functions.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/compression.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+copying horovod/torch/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/torch
+creating build/lib.linux-x86_64-cpython-312/horovod/spark
+copying horovod/spark/conf.py -> build/lib.linux-x86_64-cpython-312/horovod/spark
+copying horovod/spark/mpi_run.py -> build/lib.linux-x86_64-cpython-312/horovod/spark
+copying horovod/spark/runner.py -> build/lib.linux-x86_64-cpython-312/horovod/spark
+copying horovod/spark/gloo_run.py -> build/lib.linux-x86_64-cpython-312/horovod/spark
+copying horovod/spark/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark
+creating build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/gradient_aggregation.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/mpi_ops.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/sync_batch_norm.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/gradient_aggregation_eager.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/functions.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/compression.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+copying horovod/tensorflow/util.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow
+creating build/lib.linux-x86_64-cpython-312/horovod/mxnet
+copying horovod/mxnet/mpi_ops.py -> build/lib.linux-x86_64-cpython-312/horovod/mxnet
+copying horovod/mxnet/functions.py -> build/lib.linux-x86_64-cpython-312/horovod/mxnet
+copying horovod/mxnet/compression.py -> build/lib.linux-x86_64-cpython-312/horovod/mxnet
+copying horovod/mxnet/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/mxnet
+creating build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/mpi_run.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/js_run.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/launch.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/run_task.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/gloo_run.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+copying horovod/runner/task_fn.py -> build/lib.linux-x86_64-cpython-312/horovod/runner
+creating build/lib.linux-x86_64-cpython-312/horovod/data
+copying horovod/data/data_loader_base.py -> build/lib.linux-x86_64-cpython-312/horovod/data
+copying horovod/data/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/data
+creating build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/exceptions.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/basics.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/util.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+copying horovod/common/process_sets.py -> build/lib.linux-x86_64-cpython-312/horovod/common
+creating build/lib.linux-x86_64-cpython-312/horovod/keras
+copying horovod/keras/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/keras
+copying horovod/keras/callbacks.py -> build/lib.linux-x86_64-cpython-312/horovod/keras
+copying horovod/keras/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/keras
+creating build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/strategy.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/ray_logger.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/runner.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/utils.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/elastic_v2.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/worker.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/adapter.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+copying horovod/ray/driver_service.py -> build/lib.linux-x86_64-cpython-312/horovod/ray
+creating build/lib.linux-x86_64-cpython-312/horovod/_keras
+copying horovod/_keras/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/_keras
+copying horovod/_keras/callbacks.py -> build/lib.linux-x86_64-cpython-312/horovod/_keras
+copying horovod/_keras/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/_keras
+creating build/lib.linux-x86_64-cpython-312/horovod/torch/elastic
+copying horovod/torch/elastic/sampler.py -> build/lib.linux-x86_64-cpython-312/horovod/torch/elastic
+copying horovod/torch/elastic/state.py -> build/lib.linux-x86_64-cpython-312/horovod/torch/elastic
+copying horovod/torch/elastic/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/torch/elastic
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+copying horovod/spark/torch/remote.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+copying horovod/spark/torch/estimator.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+copying horovod/spark/torch/datamodule.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+copying horovod/spark/torch/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+copying horovod/spark/torch/util.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/torch
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/legacy.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/remote.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/estimator.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/datamodule.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+copying horovod/spark/lightning/util.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/lightning
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/rendezvous.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/rsh.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/host_discovery.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/mpirun_rsh.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/job_id.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+copying horovod/spark/driver/driver_service.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/driver
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/tensorflow
+copying horovod/spark/tensorflow/compute_worker.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/tensorflow
+copying horovod/spark/tensorflow/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/tensorflow
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/data_loaders
+copying horovod/spark/data_loaders/pytorch_data_loaders.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/data_loaders
+copying horovod/spark/data_loaders/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/data_loaders
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/store.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/_namedtuple_fix.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/constants.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/estimator.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/cache.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/datamodule.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/serialization.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/params.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/util.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+copying horovod/spark/common/backend.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/common
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/tensorflow.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/remote.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/optimizer.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/estimator.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/datamodule.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/util.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+copying horovod/spark/keras/bare.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/keras
+creating build/lib.linux-x86_64-cpython-312/horovod/spark/task
+copying horovod/spark/task/gloo_exec_fn.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/task
+copying horovod/spark/task/task_service.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/task
+copying horovod/spark/task/task_info.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/task
+copying horovod/spark/task/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/task
+copying horovod/spark/task/mpirun_exec_fn.py -> build/lib.linux-x86_64-cpython-312/horovod/spark/task
+creating build/lib.linux-x86_64-cpython-312/horovod/tensorflow/data
+copying horovod/tensorflow/data/compute_worker.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/data
+copying horovod/tensorflow/data/compute_service.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/data
+copying horovod/tensorflow/data/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/data
+creating build/lib.linux-x86_64-cpython-312/horovod/tensorflow/keras
+copying horovod/tensorflow/keras/elastic.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/keras
+copying horovod/tensorflow/keras/callbacks.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/keras
+copying horovod/tensorflow/keras/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/tensorflow/keras
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/rendezvous.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/constants.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/driver.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/worker.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/settings.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/registration.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+copying horovod/runner/elastic/discovery.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/elastic
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/http
+copying horovod/runner/http/http_client.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/http
+copying horovod/runner/http/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/http
+copying horovod/runner/http/http_server.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/http
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/threads.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/streams.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/remote.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/network.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/cache.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/lsf.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+copying horovod/runner/util/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/util
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/driver
+copying horovod/runner/driver/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/driver
+copying horovod/runner/driver/driver_service.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/driver
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/common
+copying horovod/runner/common/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/task
+copying horovod/runner/task/task_service.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/task
+copying horovod/runner/task/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/task
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/common/service
+copying horovod/runner/common/service/compute_service.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/service
+copying horovod/runner/common/service/task_service.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/service
+copying horovod/runner/common/service/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/service
+copying horovod/runner/common/service/driver_service.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/service
+creating build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/hosts.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/safe_shell_exec.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/host_hash.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/env.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/secret.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/config_parser.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/timeout.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/network.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/tiny_shell_exec.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/codec.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/__init__.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+copying horovod/runner/common/util/settings.py -> build/lib.linux-x86_64-cpython-312/horovod/runner/common/util
+running build_ext
+cmake: /ext3/miniforge3/lib/libcurl.so.4: no version information available (required by cmake)
+Running CMake in build/temp.linux-x86_64-cpython-312/RelWithDebInfo:
+cmake /scratch/zl5604/project/horovod -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO=/scratch/zl5604/project/horovod/build/lib.linux-x86_64-cpython-312 -DPYTHON_EXECUTABLE:FILEPATH=/ext3/miniforge3/envs/horovod-env-py312/bin/python
+cmake --build . --config RelWithDebInfo -- -j8 VERBOSE=1
+cmake: /ext3/miniforge3/lib/libcurl.so.4: no version information available (required by cmake)
+-- Could not find CCache. Consider installing CCache to speed up compilation.
+-- The CXX compiler identification is GNU 11.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Build architecture flags: -mf16c -mavx -mfma
+-- Using command /ext3/miniforge3/envs/horovod-env-py312/bin/python
+-- Found MPI_CXX: /ext3/miniforge3/lib/libmpicxx.so (found version "4.1") 
+-- Found MPI: TRUE (found version "4.1")  
+-- Looking for a CUDA compiler
+-- Looking for a CUDA compiler - /usr/local/cuda/bin/nvcc
+-- The CUDA compiler identification is NVIDIA 12.1.105
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found CUDAToolkit: /usr/local/cuda/include (found version "12.1.105") 
+-- Looking for C++ include pthread.h
+-- Looking for C++ include pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Linking against static NCCL library
+-- Found NCCL: /usr/include  
+-- Determining NCCL version from the header file: /usr/include/nccl.h
+-- NCCL_MAJOR_VERSION: 2
+-- NCCL_VERSION_CODE: 21701
+-- Found NCCL (include: /usr/include, library: /usr/lib/x86_64-linux-gnu/libnccl_static.a)
+-- Found NVTX: /usr/local/cuda/include  
+-- Found NVTX (include: /usr/local/cuda/include, library: dl)
+CMake Error at CMakeLists.txt:303 (add_subdirectory):
+  The source directory
+
+    /scratch/zl5604/project/horovod/third_party/gloo
+
+  does not contain a CMakeLists.txt file.
+
+
+CMake Error at CMakeLists.txt:305 (target_compile_definitions):
+  Cannot specify compile definitions for target "gloo" which is not built by
+  this project.
+
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'tensorflow'
+-- Could NOT find Tensorflow (missing: Tensorflow_LIBRARIES) (Required is at least version "1.15.0")
+-- Found Pytorch: 2.5.1 (found suitable version "2.5.1", minimum required is "1.5.0") 
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'mxnet'
+-- Could NOT find Mxnet (missing: Mxnet_LIBRARIES) (Required is at least version "1.4.1")
+-- HVD_NVCC_COMPILE_FLAGS = -O3 -Xcompiler -fPIC -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_53,code=sm_53 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61 -gencode arch=compute_62,code=sm_62 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_72,code=sm_72 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -gencode arch=compute_87,code=sm_87 -gencode arch=compute_89,code=sm_89 -gencode arch=compute_90,code=\"sm_90,compute_90\"
+CMake Error at CMakeLists.txt:370 (file):
+  file failed to open for reading (No such file or directory):
+
+    /scratch/zl5604/project/horovod/third_party/compatible_gloo/gloo/CMakeLists.txt
+
+
+CMake Error at CMakeLists.txt:373 (add_subdirectory):
+  The source directory
+
+    /scratch/zl5604/project/horovod/third_party/compatible_gloo
+
+  does not contain a CMakeLists.txt file.
+
+
+CMake Error at CMakeLists.txt:374 (target_compile_definitions):
+  Cannot specify compile definitions for target "compatible_gloo" which is
+  not built by this project.
+
+
+CMake Error at CMakeLists.txt:380 (file):
+  file failed to open for reading (No such file or directory):
+
+    /scratch/zl5604/project/horovod/third_party/compatible17_gloo/gloo/CMakeLists.txt
+
+
+CMake Error at CMakeLists.txt:383 (file):
+  file failed to open for reading (No such file or directory):
+
+    /scratch/zl5604/project/horovod/third_party/compatible17_gloo/CMakeLists.txt
+
+
+CMake Error at CMakeLists.txt:391 (target_compile_definitions):
+  Cannot specify compile definitions for target "compatible17_gloo" which is
+  not built by this project.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/scratch/zl5604/project/horovod/build/temp.linux-x86_64-cpython-312/RelWithDebInfo/CMakeFiles/CMakeOutput.log".
+Traceback (most recent call last):
+  File "/scratch/zl5604/project/horovod/setup.py", line 214, in <module>
+    setup(name='horovod',
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/__init__.py", line 117, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 183, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/core.py", line 199, in run_commands
+    dist.run_commands()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 954, in run_commands
+    self.run_command(cmd)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/dist.py", line 994, in run_command
+    super().run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+    cmd_obj.run()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/install.py", line 109, in run
+    self.do_egg_install()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/install.py", line 167, in do_egg_install
+    self.run_command('bdist_egg')
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/cmd.py", line 316, in run_command
+    self.distribution.run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/dist.py", line 994, in run_command
+    super().run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+    cmd_obj.run()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/bdist_egg.py", line 177, in run
+    cmd = self.call_command('install_lib', warn_dir=False)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/bdist_egg.py", line 163, in call_command
+    self.run_command(cmdname)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/cmd.py", line 316, in run_command
+    self.distribution.run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/dist.py", line 994, in run_command
+    super().run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+    cmd_obj.run()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/install_lib.py", line 19, in run
+    self.build()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/command/install_lib.py", line 110, in build
+    self.run_command('build_ext')
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/cmd.py", line 316, in run_command
+    self.distribution.run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/dist.py", line 994, in run_command
+    super().run_command(command)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/dist.py", line 973, in run_command
+    cmd_obj.run()
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/command/build_ext.py", line 99, in run
+    _build_ext.run(self)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py", line 359, in run
+    self.build_extensions()
+  File "/scratch/zl5604/project/horovod/setup.py", line 145, in build_extensions
+    subprocess.check_call(command, cwd=cmake_build_dir)
+  File "/ext3/miniforge3/envs/horovod-env-py312/lib/python3.12/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['cmake', '/scratch/zl5604/project/horovod', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO=/scratch/zl5604/project/horovod/build/lib.linux-x86_64-cpython-312', '-DPYTHON_EXECUTABLE:FILEPATH=/ext3/miniforge3/envs/horovod-env-py312/bin/python']' returned non-zero exit status 1.
