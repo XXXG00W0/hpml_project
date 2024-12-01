@@ -221,7 +221,6 @@ def train_step_torch(model_engine, batch, optimizer, scaler, args):
     scaler.update()
     return loss
 
-
 def main():
     args = parse_args()
     torch.manual_seed(args.seed)
@@ -231,7 +230,7 @@ def main():
     tokenizer.pad_token = tokenizer.eos_token
 
     # Use pretrained GPT-2 Small
-    model = GPT2LMHeadModel.from_pretrained('gpt2')
+    model = GPT2LMHeadModel.from_pretrained('gpt2-small')
     model.config.initializer_range = args.init_method_std  # From INITIALIZATION_ARGS
 
     # Calculate gradient_accumulation_steps
@@ -240,7 +239,7 @@ def main():
 
     # Set up DeepSpeed configuration
     total_training_steps = args.train_iters
-    warmup_num_steps = min(2000, int(total_training_steps * 0.1))
+    args.warmup_num_steps = min(2000, int(total_training_steps * 0.1))
 
     # Set Distriburted Framework
     model_engine, optimizer, scalar = None, None, None
