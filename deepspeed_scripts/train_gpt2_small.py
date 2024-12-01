@@ -31,6 +31,8 @@ def parse_args():
     # Optimization parameters
     parser.add_argument('--lr', type=float, default=0.00015, help='Learning rate')
     parser.add_argument('--min-lr', type=float, default=1e-5, help='Minimum learning rate')
+    parser.add_argument('--clip-grad', type=float, default=1.0, help='Gradient clipping value')
+    parser.add_argument('--lr-decay-style', type=str, default='cosine', help='Learning rate decay style')
     parser.add_argument('--warmup-num-steps', type=int, default=2000, help='Warmup steps')
     parser.add_argument('--weight-decay', type=float, default=0.01, help='Weight decay')
     parser.add_argument('--adam-beta1', type=float, default=0.9, help='Adam beta1')
@@ -45,12 +47,28 @@ def parse_args():
 
     # Distributed training
     parser.add_argument('--distributed-framework', type=str, default=None, help='Distributed framework to use (deepspeed, torch or None)')
+    parser.add_argument('--num-gpus', type=int, default=4, help='Number of GPUs per node')
+    parser.add_argument('--num-nodes', type=int, default=1, help='Number of nodes')
+    parser.add_argument('--master-addr', type=str, default='localhost', help='Master address for distributed training')
+    parser.add_argument('--master-port', type=int, default=6000, help='Master port for distributed training')
     parser.add_argument('--use-pytorch-profiler', action='store_true', help='Enable PyTorch Profiler')
     parser.add_argument('--profile-ranks', type=str, default='0', help='Comma-separated ranks to profile')
 
     # Miscellaneous
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
     parser.add_argument('--init-method-std', type=float, default=0.02, help='Standard deviation for model initialization')
+
+    # Not implemented arguments
+    parser.add_argument('--world-size', type=int, default=None, help='World size for distributed training')
+    parser.add_argument('--data-impl', type=str, default='mmap', help='Data implementation type (mmap, lazy, etc.)')
+    parser.add_argument('--split', type=str, default='949,50,1', help='Data split ratios (train, validation, test)')
+    parser.add_argument('--empty-unused-memory-level', type=int, default=1, help='Level for emptying unused memory (1-3)')
+    parser.add_argument('--log-throughput', action='store_true', help='Enable logging of throughput')
+    parser.add_argument('--timing-log-level', type=int, default=2, help='Timing log level (0-3)')
+    parser.add_argument('--timing-log-option', type=str, default='all', help='Timing log option (default: all)')
+    parser.add_argument('--log-timers-to-tensorboard', action='store_true', help='Log timers to TensorBoard')
+    parser.add_argument('--log-validation-ppl-to-tensorboard', action='store_true', help='Log validation perplexity to TensorBoard')
+    parser.add_argument('--cuda-max-connections', type=int, default=1, help='Set CUDA_DEVICE_MAX_CONNECTIONS')
 
     parser = deepspeed.add_config_arguments(parser)
     args = parser.parse_args()
@@ -143,7 +161,7 @@ def setup_deepspeed(model, args):
                 "total_num_steps": args.train_iters
             }
         },
-        "gradient_clipping": 1.0,
+        "gradient_clipping": args.clip_grad,
         "zero_optimization": {
             "stage": 2,  # ZeRO Stage 2 for optimizer state partitioning
             "offload_optimizer": {
@@ -161,7 +179,7 @@ def setup_deepspeed(model, args):
         config_params=deepspeed_config
     )
 
-    world_size = int(os.getenv('WORLD_SIZE', '1'))
+    world_size = args.num_gpus * args.num_nodes
     gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
     warmup_num_steps = min(2000, int(args.train_iters * 0.1))
     return model_engine, optimizer
@@ -210,13 +228,20 @@ def train_step_deepspeed(model_engine, batch):
     return loss
 
 def train_step_torch(model_engine, batch, optimizer, scaler, args):
+
     input_ids = batch['input_ids'].to(model_engine.device)
     labels = batch['labels'].to(model_engine.device)
-    with torch.amp.autocast(device_type='cuda', enabled=args.use_fp16, dtype=torch.float16):
+
+    with torch.cuda.amp.autocast(device_type='cuda', enabled=args.use_fp16, dtype=torch.float16):
         outputs = model_engine(input_ids=input_ids, labels=labels)
         loss = outputs.loss
+
     model_engine.zero_grad()
     scaler.scale(loss).backward()
+
+    if args.clip_grad is not None:
+        torch.nn.utils.clip_grad_norm_(model_engine.parameters(), args.clip_grad)
+
     scaler.step(optimizer)
     scaler.update()
     return loss
