@@ -117,4 +117,4 @@ singularity exec --nv --overlay ${OVERLAY} ${SINGULARITY_CONTAINER} \
     ${INITIALIATION_ARGS[@]} \
     ${DATA_ARGS[@]} \
     ${EVAL_AND_LOGGING_ARGS[@]} \
-    --deepspeed --deepspeed_config ds_config.json"
+    --deepspeed"
