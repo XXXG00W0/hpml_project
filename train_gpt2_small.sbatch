@@ -17,7 +17,7 @@ OVERLAY=/scratch/zl5604/project/project.ext3:rw
 singularity exec --nv --overlay ${OVERLAY} ${SINGULARITY_CONTAINER} \
     /bin/bash -c "source /ext3/env.sh; cd /scratch/zl5604/project/; 
     conda activate deepspeed; \
-    python train_gpt2_small.py \
+    python deepspeed_scripts/train_gpt2_small.py \
     --data-path /oscar_subsets/oscar_subset_100MB_raw.jsonl \
     --model-path /gpt2_small/pytorch_model.bin \
     --vocab-file /gpt2_small/vocab.json \
