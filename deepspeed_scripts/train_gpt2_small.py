@@ -15,9 +15,10 @@ def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch DDP and Deepspeed with ZeRO optimization for GPT-2 training')
 
     # Data and model paths
-    parser.add_argument('--data-path', type=str, default='../oscar_subsets/oscar_subset_100MB_raw.jsonl', help='Path to data jsonl file')
-    parser.add_argument('--vocab-file', type=str, default='../gpt2_small/vocab.json', help='Path to vocab.json')
-    parser.add_argument('--merge-file', type=str, default='../gpt2_small/merges.txt', help='Path to merges.txt')
+    parser.add_argument('--data-path', type=str, default='/oscar_subsets/oscar_subset_100MB_raw.jsonl', help='Path to data jsonl file')
+    parser.add_argument('--model-path', type=str, default='/gpt2_small/pytorch_model.bin', help='Path to GPT-2 model')
+    parser.add_argument('--vocab-file', type=str, default='/gpt2_small/vocab.json', help='Path to vocab.json')
+    parser.add_argument('--merge-file', type=str, default='/gpt2_small/merges.txt', help='Path to merges.txt')
     parser.add_argument('--checkpoint-path', type=str, default='/checkpoints/', help='Path to save checkpoints')
     parser.add_argument('--tensorboard-logs-path', type=str, default='/logs/', help='TensorBoard log directory')
 
@@ -255,7 +256,7 @@ def main():
     tokenizer.pad_token = tokenizer.eos_token
 
     # Use pretrained GPT-2 Small
-    model = GPT2LMHeadModel.from_pretrained('gpt2-small')
+    model = GPT2LMHeadModel.from_pretrained(args.model_path)
     model.config.initializer_range = args.init_method_std  # From INITIALIZATION_ARGS
 
     # Calculate gradient_accumulation_steps
@@ -285,6 +286,8 @@ def main():
 
     # Set up logging
     writer = SummaryWriter(log_dir=args.tensorboard_logs_path)
+    # Initialize WandB offline
+    wandb.setup(mode='offline')
     if args.distributed_framework == 'deepspeed':
         wandb.init(project=args.wandb_project+' deepspeed', dir='./wandb')
     elif args.distributed_framework == 'torch':
