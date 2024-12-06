@@ -1,0 +1,239 @@
+W1202 23:26:39.308000 6431 site-packages/torch/distributed/run.py:793] 
+W1202 23:26:39.308000 6431 site-packages/torch/distributed/run.py:793] *****************************************
+W1202 23:26:39.308000 6431 site-packages/torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1202 23:26:39.308000 6431 site-packages/torch/distributed/run.py:793] *****************************************
+usage: train_gpt2_small.py [-h] [--data-path DATA_PATH]
+                           [--model-path MODEL_PATH] [--vocab-file VOCAB_FILE]
+                           [--merge-file MERGE_FILE]
+                           [--checkpoint-path CHECKPOINT_PATH]
+                           [--tensorboard-logs-path TENSORBOARD_LOGS_PATH]
+                           [--kv-channels KV_CHANNELS]
+                           [--num-attention-heads NUM_ATTENTION_HEADS]
+                           [--hidden-size HIDDEN_SIZE]
+                           [--group-query-attention]
+                           [--num-query-groups NUM_QUERY_GROUPS]
+                           [--num-experts NUM_EXPERTS]
+                           [--moe-router-topk MOE_ROUTER_TOPK] [--swiglu]
+                           [--moe-shared-expert-intermediate-size MOE_SHARED_EXPERT_INTERMEDIATE_SIZE]
+                           [--seq-length SEQ_LENGTH] [--num-layers NUM_LAYERS]
+                           [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                           [--padded-vocab-size PADDED_VOCAB_SIZE]
+                           [--micro-batch-size MICRO_BATCH_SIZE]
+                           [--global-batch-size GLOBAL_BATCH_SIZE]
+                           [--train-iters TRAIN_ITERS]
+                           [--train-val-split TRAIN_VAL_SPLIT]
+                           [--eval-iters EVAL_ITERS] [--lr LR]
+                           [--min-lr MIN_LR] [--clip-grad CLIP_GRAD]
+                           [--lr-decay-style LR_DECAY_STYLE]
+                           [--warmup-num-steps WARMUP_NUM_STEPS]
+                           [--weight-decay WEIGHT_DECAY]
+                           [--adam-beta1 ADAM_BETA1] [--adam-beta2 ADAM_BETA2]
+                           [--use-fp16]
+                           [--empty-unused-memory-level EMPTY_UNUSED_MEMORY_LEVEL]
+                           [--clear-memory-interval CLEAR_MEMORY_INTERVAL]
+                           [--log-interval LOG_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--save-interval SAVE_INTERVAL]
+                           [--wandb-project WANDB_PROJECT]
+                           [--timing-log-level {0,1,2}]
+                           [--timing-log-option {max,minmax,all}]
+                           [--log-throughput] [--log-timers-to-tensorboard]
+                           [--framework FRAMEWORK] [--num-gpus NUM_GPUS]
+                           [--num-nodes NUM_NODES] [--master-addr MASTER_ADDR]
+                           [--master-port MASTER_PORT]
+                           [--use-pytorch-profiler]
+                           [--profile-ranks PROFILE_RANKS]
+                           [--world-size WORLD_SIZE] [--seed SEED]
+                           [--init-method-std INIT_METHOD_STD]
+                           [--data-impl DATA_IMPL] [--split SPLIT]
+                           [--log-validation-ppl-to-tensorboard]
+                           [--cuda-max-connections CUDA_MAX_CONNECTIONS]
+usage: train_gpt2_small.py [-h] [--data-path DATA_PATH]
+                           [--model-path MODEL_PATH] [--vocab-file VOCAB_FILE]
+                           [--merge-file MERGE_FILE]
+                           [--checkpoint-path CHECKPOINT_PATH]
+                           [--tensorboard-logs-path TENSORBOARD_LOGS_PATH]
+                           [--kv-channels KV_CHANNELS]
+                           [--num-attention-heads NUM_ATTENTION_HEADS]
+                           [--hidden-size HIDDEN_SIZE]
+                           [--group-query-attention]
+                           [--num-query-groups NUM_QUERY_GROUPS]
+                           [--num-experts NUM_EXPERTS]
+                           [--moe-router-topk MOE_ROUTER_TOPK] [--swiglu]
+                           [--moe-shared-expert-intermediate-size MOE_SHARED_EXPERT_INTERMEDIATE_SIZE]
+                           [--seq-length SEQ_LENGTH] [--num-layers NUM_LAYERS]
+                           [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                           [--padded-vocab-size PADDED_VOCAB_SIZE]
+                           [--micro-batch-size MICRO_BATCH_SIZE]
+                           [--global-batch-size GLOBAL_BATCH_SIZE]
+                           [--train-iters TRAIN_ITERS]
+                           [--train-val-split TRAIN_VAL_SPLIT]
+                           [--eval-iters EVAL_ITERS] [--lr LR]
+                           [--min-lr MIN_LR] [--clip-grad CLIP_GRAD]
+                           [--lr-decay-style LR_DECAY_STYLE]
+                           [--warmup-num-steps WARMUP_NUM_STEPS]
+                           [--weight-decay WEIGHT_DECAY]
+                           [--adam-beta1 ADAM_BETA1] [--adam-beta2 ADAM_BETA2]
+                           [--use-fp16]
+                           [--empty-unused-memory-level EMPTY_UNUSED_MEMORY_LEVEL]
+                           [--clear-memory-interval CLEAR_MEMORY_INTERVAL]
+                           [--log-interval LOG_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--save-interval SAVE_INTERVAL]
+                           [--wandb-project WANDB_PROJECT]
+                           [--timing-log-level {0,1,2}]
+                           [--timing-log-option {max,minmax,all}]
+                           [--log-throughput] [--log-timers-to-tensorboard]
+                           [--framework FRAMEWORK] [--num-gpus NUM_GPUS]
+                           [--num-nodes NUM_NODES] [--master-addr MASTER_ADDR]
+                           [--master-port MASTER_PORT]
+                           [--use-pytorch-profiler]
+                           [--profile-ranks PROFILE_RANKS]
+                           [--world-size WORLD_SIZE] [--seed SEED]
+                           [--init-method-std INIT_METHOD_STD]
+                           [--data-impl DATA_IMPL] [--split SPLIT]
+                           [--log-validation-ppl-to-tensorboard]
+                           [--cuda-max-connections CUDA_MAX_CONNECTIONS]
+train_gpt2_small.py: error: unrecognized arguments: --distributed-framework torch
+usage: train_gpt2_small.py [-h] [--data-path DATA_PATH]
+                           [--model-path MODEL_PATH] [--vocab-file VOCAB_FILE]
+                           [--merge-file MERGE_FILE]
+                           [--checkpoint-path CHECKPOINT_PATH]
+                           [--tensorboard-logs-path TENSORBOARD_LOGS_PATH]
+                           [--kv-channels KV_CHANNELS]
+                           [--num-attention-heads NUM_ATTENTION_HEADS]
+                           [--hidden-size HIDDEN_SIZE]
+                           [--group-query-attention]
+                           [--num-query-groups NUM_QUERY_GROUPS]
+                           [--num-experts NUM_EXPERTS]
+                           [--moe-router-topk MOE_ROUTER_TOPK] [--swiglu]
+                           [--moe-shared-expert-intermediate-size MOE_SHARED_EXPERT_INTERMEDIATE_SIZE]
+                           [--seq-length SEQ_LENGTH] [--num-layers NUM_LAYERS]
+                           [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                           [--padded-vocab-size PADDED_VOCAB_SIZE]
+                           [--micro-batch-size MICRO_BATCH_SIZE]
+                           [--global-batch-size GLOBAL_BATCH_SIZE]
+                           [--train-iters TRAIN_ITERS]
+                           [--train-val-split TRAIN_VAL_SPLIT]
+                           [--eval-iters EVAL_ITERS] [--lr LR]
+                           [--min-lr MIN_LR] [--clip-grad CLIP_GRAD]
+                           [--lr-decay-style LR_DECAY_STYLE]
+                           [--warmup-num-steps WARMUP_NUM_STEPS]
+                           [--weight-decay WEIGHT_DECAY]
+                           [--adam-beta1 ADAM_BETA1] [--adam-beta2 ADAM_BETA2]
+                           [--use-fp16]
+                           [--empty-unused-memory-level EMPTY_UNUSED_MEMORY_LEVEL]
+                           [--clear-memory-interval CLEAR_MEMORY_INTERVAL]
+                           [--log-interval LOG_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--save-interval SAVE_INTERVAL]
+                           [--wandb-project WANDB_PROJECT]
+                           [--timing-log-level {0,1,2}]
+                           [--timing-log-option {max,minmax,all}]
+                           [--log-throughput] [--log-timers-to-tensorboard]
+                           [--framework FRAMEWORK] [--num-gpus NUM_GPUS]
+                           [--num-nodes NUM_NODES] [--master-addr MASTER_ADDR]
+                           [--master-port MASTER_PORT]
+                           [--use-pytorch-profiler]
+                           [--profile-ranks PROFILE_RANKS]
+                           [--world-size WORLD_SIZE] [--seed SEED]
+                           [--init-method-std INIT_METHOD_STD]
+                           [--data-impl DATA_IMPL] [--split SPLIT]
+                           [--log-validation-ppl-to-tensorboard]
+                           [--cuda-max-connections CUDA_MAX_CONNECTIONS]
+train_gpt2_small.py: error: unrecognized arguments: --distributed-framework torch
+train_gpt2_small.py: error: unrecognized arguments: --distributed-framework torch
+usage: train_gpt2_small.py [-h] [--data-path DATA_PATH]
+                           [--model-path MODEL_PATH] [--vocab-file VOCAB_FILE]
+                           [--merge-file MERGE_FILE]
+                           [--checkpoint-path CHECKPOINT_PATH]
+                           [--tensorboard-logs-path TENSORBOARD_LOGS_PATH]
+                           [--kv-channels KV_CHANNELS]
+                           [--num-attention-heads NUM_ATTENTION_HEADS]
+                           [--hidden-size HIDDEN_SIZE]
+                           [--group-query-attention]
+                           [--num-query-groups NUM_QUERY_GROUPS]
+                           [--num-experts NUM_EXPERTS]
+                           [--moe-router-topk MOE_ROUTER_TOPK] [--swiglu]
+                           [--moe-shared-expert-intermediate-size MOE_SHARED_EXPERT_INTERMEDIATE_SIZE]
+                           [--seq-length SEQ_LENGTH] [--num-layers NUM_LAYERS]
+                           [--ffn-hidden-size FFN_HIDDEN_SIZE]
+                           [--padded-vocab-size PADDED_VOCAB_SIZE]
+                           [--micro-batch-size MICRO_BATCH_SIZE]
+                           [--global-batch-size GLOBAL_BATCH_SIZE]
+                           [--train-iters TRAIN_ITERS]
+                           [--train-val-split TRAIN_VAL_SPLIT]
+                           [--eval-iters EVAL_ITERS] [--lr LR]
+                           [--min-lr MIN_LR] [--clip-grad CLIP_GRAD]
+                           [--lr-decay-style LR_DECAY_STYLE]
+                           [--warmup-num-steps WARMUP_NUM_STEPS]
+                           [--weight-decay WEIGHT_DECAY]
+                           [--adam-beta1 ADAM_BETA1] [--adam-beta2 ADAM_BETA2]
+                           [--use-fp16]
+                           [--empty-unused-memory-level EMPTY_UNUSED_MEMORY_LEVEL]
+                           [--clear-memory-interval CLEAR_MEMORY_INTERVAL]
+                           [--log-interval LOG_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--save-interval SAVE_INTERVAL]
+                           [--wandb-project WANDB_PROJECT]
+                           [--timing-log-level {0,1,2}]
+                           [--timing-log-option {max,minmax,all}]
+                           [--log-throughput] [--log-timers-to-tensorboard]
+                           [--framework FRAMEWORK] [--num-gpus NUM_GPUS]
+                           [--num-nodes NUM_NODES] [--master-addr MASTER_ADDR]
+                           [--master-port MASTER_PORT]
+                           [--use-pytorch-profiler]
+                           [--profile-ranks PROFILE_RANKS]
+                           [--world-size WORLD_SIZE] [--seed SEED]
+                           [--init-method-std INIT_METHOD_STD]
+                           [--data-impl DATA_IMPL] [--split SPLIT]
+                           [--log-validation-ppl-to-tensorboard]
+                           [--cuda-max-connections CUDA_MAX_CONNECTIONS]
+train_gpt2_small.py: error: unrecognized arguments: --distributed-framework torch
+W1202 23:27:00.868000 6431 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 6481 closing signal SIGTERM
+E1202 23:27:00.983000 6431 site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 6478) of binary: /ext3/miniforge3/envs/deepspeed/bin/python
+Traceback (most recent call last):
+  File "/ext3/miniforge3/envs/deepspeed/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.5.1', 'console_scripts', 'torchrun')())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/distributed/run.py", line 919, in main
+    run(args)
+  File "/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/distributed/run.py", line 910, in run
+    elastic_launch(
+  File "/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_gpt2_small.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2024-12-02_23:27:00
+  host      : b-33-11.c.hpc-slurm-9c75.internal
+  rank      : 1 (local_rank: 1)
+  exitcode  : 2 (pid: 6479)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2024-12-02_23:27:00
+  host      : b-33-11.c.hpc-slurm-9c75.internal
+  rank      : 2 (local_rank: 2)
+  exitcode  : 2 (pid: 6480)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2024-12-02_23:27:00
+  host      : b-33-11.c.hpc-slurm-9c75.internal
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 6478)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

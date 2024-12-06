@@ -6,6 +6,7 @@ import torch
 import ctypes
 from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2LMHeadModel, GPT2Config, GPT2Tokenizer
+import deepspeed
 from torch.utils.tensorboard import SummaryWriter
 import pandas as pd
 import wandb
@@ -16,6 +17,8 @@ from tqdm import tqdm
 # Megatron-LM Timers implementation
 from timers import Timers
 from utils import *
+
+local_rank = int(os.environ["LOCAL_RANK"])
 
 def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch DDP and Deepspeed with ZeRO optimization for GPT-2 training')
@@ -96,8 +99,8 @@ def parse_args():
     parser.add_argument('--log-validation-ppl-to-tensorboard', action='store_true', help='Log validation perplexity to TensorBoard')
     parser.add_argument('--cuda-max-connections', type=int, default=1, help='Set CUDA_DEVICE_MAX_CONNECTIONS')
 
+    parser = deepspeed.add_config_arguments(parser)
     args = parser.parse_args()
-    return args
 
 def check_directory(args):
     chpt_run = f'{args.checkpoint_path}/run_{time.strftime("%Y%m%d-%H%M%S")}'   
@@ -172,7 +175,7 @@ def evaluate(model_engine, valid_dataloader, eval_iters, args):
             if i >= eval_iters:
                 break
                 
-            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            device = model_engine.local_rank
 
             input_ids = batch['input_ids'].to(device)
             labels = batch['labels'].to(device)
@@ -197,6 +200,55 @@ def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.train()
     return avg_loss, perplexity
 
+def setup_deepspeed(model, args):
+    
+    gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
+    deepspeed_config = {
+        "train_batch_size": args.global_batch_size,
+        "gradient_accumulation_steps": gradient_accumulation_steps,
+        "fp16": {
+            "enabled": args.use_fp16
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "params": {
+                "lr": args.lr,
+                "betas": [args.adam_beta1, args.adam_beta2],
+                "weight_decay": args.weight_decay
+            }
+        },
+        "scheduler": {
+            "type": "WarmupCosine",
+            "params": {
+                "warmup_min_lr": args.min_lr,
+                "warmup_max_lr": args.lr,
+                "warmup_num_steps": warmup_num_steps,
+                "total_num_steps": args.train_iters
+            }
+        },
+        "gradient_clipping": args.clip_grad,
+        "zero_optimization": {
+            "stage": 2,  # ZeRO Stage 2 for optimizer state partitioning
+            "offload_optimizer": {
+                "device": "cpu",  # Offload optimizer states to CPU
+                "pin_memory": True
+            },
+            "overlap_comm": True
+        }
+    }
+    # Initialize DeepSpeed
+    model_engine, optimizer, _, _ = deepspeed.initialize(
+        args=args,
+        model=model,
+        model_parameters=model.parameters(),
+        config_params=deepspeed_config
+    )
+
+    world_size = args.num_gpus * args.num_nodes
+    gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
+    warmup_num_steps = min(2000, int(args.train_iters * 0.1))
+    return model_engine, optimizer
+
 def create_warmup_cosine_schedule(args, optimizer):
     warmup_num_steps = args.warmup_num_steps
     def warmup_schedule(current_step):
@@ -208,54 +260,13 @@ def create_warmup_cosine_schedule(args, optimizer):
     scheduler = SequentialLR(optimizer, schedulers=[warmup_scheduler, cosine_scheduler], milestones=[warmup_num_steps])
     return scheduler
 
-def setup_no_distributed(model, args):
-    model = model.to('cuda')
-    optimizer = torch.optim.AdamW(model.parameters(), 
-                                  lr=args.lr, 
-                                  betas=(args.adam_beta1, args.adam_beta2), 
-                                  weight_decay=args.weight_decay)
-    scheduler = create_warmup_cosine_schedule(args, optimizer)
-    scalar = torch.amp.GradScaler() if args.use_fp16 else None
-    return model, optimizer, scheduler, scalar
-
-def train_step_torch(model_engine, batch, optimizer, scheduler, scaler, args, global_step):
-
-    input_ids = batch['input_ids'].to(model_engine.device)
-    labels = batch['labels'].to(model_engine.device)
-
-    with torch.autocast(device_type='cuda', enabled=args.use_fp16, dtype=torch.float16):
-        outputs = model_engine(input_ids=input_ids, labels=labels)
-        loss = outputs.loss
-
-    # Empty unused memory.
-    if global_step % args.clear_memory_interval == 0 \
-    and global_step != 0 \
-    and args.empty_unused_memory_level >= 1:
-        torch.cuda.empty_cache()
-
-    model_engine.zero_grad()
-    if args.use_fp16:
-        scaler.scale(loss).backward()
-    else:
-        loss.backward()
-
-    if args.clip_grad is not None:
-        torch.nn.utils.clip_grad_norm_(model_engine.parameters(), args.clip_grad)
-
-    if args.use_fp16:
-        scaler.step(optimizer)
-        scaler.update()
-    else:
-        optimizer.step()
-
-    scheduler.step()
-
-    # Empty unused memory.
-    if global_step % args.clear_memory_interval == 0 \
-    and global_step != 0 \
-    and args.empty_unused_memory_level >= 2:
-        torch.cuda.empty_cache()
-
+def train_step_deepspeed(model_engine, batch):
+    input_ids = batch['input_ids'].to(model_engine.local_rank)
+    labels = batch['labels'].to(model_engine.local_rank)
+    outputs = model_engine(input_ids=input_ids, labels=labels)
+    loss = outputs.loss
+    model_engine.backward(loss)
+    model_engine.step()
     return loss
 
 def main():
@@ -285,14 +296,13 @@ def main():
 
     # Calculate gradient_accumulation_steps
     world_size = int(os.getenv('WORLD_SIZE', '1'))
-    gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
 
     # Set up DeepSpeed configuration
     total_training_steps = args.train_iters
     args.warmup_num_steps = min(2000, int(total_training_steps * 0.1))
 
     # Set Distriburted Framework
-    model_engine, optimizer, scheduler, scalar = setup_no_distributed(model, args)
+    model_engine, optimizer = setup_deepspeed(model, args)
 
     # Load datasets
     train_dataset, valid_dataset = create_datasets(tokenizer, args.data_path, train_val_split=args.train_val_split)
@@ -303,7 +313,7 @@ def main():
     # Initialize WandB offline
     wandb_enabled = False
     try:
-        wandb.init(project=args.wandb_project)
+        wandb.init(project=args.wandb_project+' deepspeed')
         wandb.config.update(args)
         wandb_enabled = True
     except Exception as e:
@@ -312,7 +322,7 @@ def main():
     # PyTorch Profiler
     profiler_ranks = [int(rank) for rank in args.profile_ranks.split(',')]
     profiler = None
-    if args.use_pytorch_profiler:
+    if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
             schedule=torch.profiler.schedule(wait=10, warmup=5, active=10, repeat=10),
@@ -337,11 +347,10 @@ def main():
             if global_step >= args.train_iters:
                 break
             
-            
-            loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
+            loss = train_step_deepspeed(model_engine, batch)
 
             # Profiler
-            if args.use_pytorch_profiler:
+            if args.use_pytorch_profiler and profiler:
                 profiler.step()
 
             # WandB and TensorBoard logging
@@ -354,12 +363,12 @@ def main():
                 print(f"Step {global_step}: loss {loss.item()}")
 
                 # Log learning rate
-                learning_rate = scheduler.get_last_lr()[0]
+                learning_rate = model_engine.lr_scheduler.get_last_lr()
                 if wandb_enabled: wandb.log({'learning-rate': learning_rate}, step=global_step)
                 writer.add_scalar('Learning-rate', learning_rate, global_step)
                 print(f"Learning rate: {learning_rate}")
 
-                # Log throughput (TFLOPS) over fix steps
+                # Log throughput
                 if args.log_throughput:
                     elapsed_time_per_iteration = elapsed_time / global_step
                     batch_size = args.micro_batch_size * args.world_size
@@ -368,7 +377,7 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput (TFLOPS) at step {global_step}: {throughput}")
+                    print(f"Throughput over steps {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
@@ -412,7 +421,7 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    if args.use_pytorch_profiler and profiler:
+    if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks:
         profiler.stop()
         key_averages = profiler.key_averages()
         

@@ -6,6 +6,7 @@ import torch
 import ctypes
 from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2LMHeadModel, GPT2Config, GPT2Tokenizer
+from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.tensorboard import SummaryWriter
 import pandas as pd
 import wandb
@@ -16,6 +17,9 @@ from tqdm import tqdm
 # Megatron-LM Timers implementation
 from timers import Timers
 from utils import *
+
+# os.environ['WANDB_MODE'] = 'online'
+local_rank = int(os.environ["LOCAL_RANK"])
 
 def parse_args():
     parser = argparse.ArgumentParser(description='PyTorch DDP and Deepspeed with ZeRO optimization for GPT-2 training')
@@ -171,8 +175,8 @@ def evaluate(model_engine, valid_dataloader, eval_iters, args):
         for i, batch in enumerate(valid_dataloader):
             if i >= eval_iters:
                 break
-                
-            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+            device = torch.device(f"cuda:{torch.distributed.get_rank()}")
 
             input_ids = batch['input_ids'].to(device)
             labels = batch['labels'].to(device)
@@ -208,12 +212,16 @@ def create_warmup_cosine_schedule(args, optimizer):
     scheduler = SequentialLR(optimizer, schedulers=[warmup_scheduler, cosine_scheduler], milestones=[warmup_num_steps])
     return scheduler
 
-def setup_no_distributed(model, args):
+def setup_ddp(model, args):
+    torch.distributed.init_process_group(backend='nccl')
+    torch.cuda.set_device(local_rank)
     model = model.to('cuda')
+    model = DDP(model, device_ids=[local_rank])
     optimizer = torch.optim.AdamW(model.parameters(), 
                                   lr=args.lr, 
                                   betas=(args.adam_beta1, args.adam_beta2), 
                                   weight_decay=args.weight_decay)
+    # imitate DeepSpeed's WarmupCosine schedule
     scheduler = create_warmup_cosine_schedule(args, optimizer)
     scalar = torch.amp.GradScaler() if args.use_fp16 else None
     return model, optimizer, scheduler, scalar
@@ -260,7 +268,7 @@ def train_step_torch(model_engine, batch, optimizer, scheduler, scaler, args, gl
 
 def main():
     cwd = os.getcwd()
-    print(f"Current working directory: {cwd}")
+    print(f"Current working directory: {cwd}\n")
 
     args = parse_args()
     check_directory(args)
@@ -292,7 +300,7 @@ def main():
     args.warmup_num_steps = min(2000, int(total_training_steps * 0.1))
 
     # Set Distriburted Framework
-    model_engine, optimizer, scheduler, scalar = setup_no_distributed(model, args)
+    model_engine, optimizer, scheduler, scalar = setup_ddp(model, args)
 
     # Load datasets
     train_dataset, valid_dataset = create_datasets(tokenizer, args.data_path, train_val_split=args.train_val_split)
@@ -303,7 +311,7 @@ def main():
     # Initialize WandB offline
     wandb_enabled = False
     try:
-        wandb.init(project=args.wandb_project)
+        wandb.init(project=args.wandb_project+' torch')
         wandb.config.update(args)
         wandb_enabled = True
     except Exception as e:
@@ -312,7 +320,8 @@ def main():
     # PyTorch Profiler
     profiler_ranks = [int(rank) for rank in args.profile_ranks.split(',')]
     profiler = None
-    if args.use_pytorch_profiler:
+    print(f"Profiler ranks: {profiler_ranks}, local rank: {torch.distributed.get_rank()}")
+    if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
             schedule=torch.profiler.schedule(wait=10, warmup=5, active=10, repeat=10),
@@ -321,7 +330,7 @@ def main():
             with_stack=False,
             on_trace_ready=tensorboard_trace_handler(args.tensorboard_logs_path))
         profiler.start()
-        print(f"Profiler initialized")
+        print(f"local rank: {torch.distributed.get_rank()} profiler initialized")
 
     global_step = 0
     pbar = tqdm(total=args.train_iters, desc='Training')
@@ -337,11 +346,10 @@ def main():
             if global_step >= args.train_iters:
                 break
             
-            
             loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
 
             # Profiler
-            if args.use_pytorch_profiler:
+            if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
                 profiler.step()
 
             # WandB and TensorBoard logging
@@ -359,7 +367,7 @@ def main():
                 writer.add_scalar('Learning-rate', learning_rate, global_step)
                 print(f"Learning rate: {learning_rate}")
 
-                # Log throughput (TFLOPS) over fix steps
+                # Log throughput (TFLOPS)
                 if args.log_throughput:
                     elapsed_time_per_iteration = elapsed_time / global_step
                     batch_size = args.micro_batch_size * args.world_size
@@ -368,7 +376,7 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput (TFLOPS) at step {global_step}: {throughput}")
+                    print(f"Throughput over steps {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
@@ -412,18 +420,21 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    if args.use_pytorch_profiler and profiler:
+    if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
+        print(f"Stopping profiler on rank {torch.distributed.get_rank()}")
+        print(f"check profiler if it is running: {profiler.profile} on rank {torch.distributed.get_rank()}")
         profiler.stop()
+        print(local_rank, profiler)
         key_averages = profiler.key_averages()
         
-        # print top 10 ops by self_cuda_time_total
+        # 打印表格，按设备时间排序
         print(key_averages.table(sort_by="self_cuda_time_total", row_limit=10))
         
-        # accumulate the average times for ops that start with "torch::mm"
+        # 累加设备（CUDA）和 CPU 总时间
         total_device_time = sum(item.device_time_total for item in key_averages)
         total_cpu_time = sum(item.cpu_time_total for item in key_averages)
 
-        # Prepare data for logging
+        # 准备记录的数据
         data = [
             {
                 "Name": item.key,
@@ -441,20 +452,20 @@ def main():
             for item in key_averages
         ]
 
-        # Print total device and CPU time
+        # 打印总时间
         print(f"Total Device Time: {total_device_time / 1e3:.2f} ms")
         print(f"Total CPU Time: {total_cpu_time / 1e3:.2f} ms")
         
-        # Convert to Pandas DataFrame
+        # 保存为 Pandas DataFrame
         df = pd.DataFrame(data)
 
-        # Log data to WandB and TensorBoard
+        # 使用 wandb 记录数据
         if wandb_enabled:
             wandb.log({'profiler_data': wandb.Table(dataframe=df)}, step=global_step)
             wandb.log({'total_device_time_ms': total_device_time / 1e3}, step=global_step)
             wandb.log({'total_cpu_time_ms': total_cpu_time / 1e3}, step=global_step)
 
-        # import time
+        import time
         # profiler.export_chrome_trace(f'{args.tensorboard_logs_path}/trace_{time.strftime("%Y%m%d-%H%M%S")}.json')
 
 

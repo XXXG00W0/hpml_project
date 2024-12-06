@@ -35,6 +35,7 @@ DATA_PATH="gpt2-small"             # 数据集路径（前缀）
 
 # 分布式训练参数
 DISTRIBUTED_ARGS=(
+    --framework deepspeed
     --num_gpus $GPUS_PER_NODE 
     --num_nodes $NUM_NODES 
     --master_addr $MASTER_ADDR 

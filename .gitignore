@@ -162,3 +162,9 @@ cython_debug/
 *.jsonl
 *.pt
 /oscar2301
+/checkpoints
+/tb_logs
+*.bin
+/gpt2_small
+*.zip
+/oscar_subsets
