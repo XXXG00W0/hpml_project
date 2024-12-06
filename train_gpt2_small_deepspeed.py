@@ -350,7 +350,7 @@ def main():
             loss = train_step_deepspeed(model_engine, batch)
 
             # Profiler
-            if args.use_pytorch_profiler and profiler:
+            if args.use_pytorch_profiler:
                 profiler.step()
 
             # WandB and TensorBoard logging

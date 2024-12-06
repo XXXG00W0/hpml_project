@@ -331,6 +331,7 @@ def main():
             on_trace_ready=tensorboard_trace_handler(args.tensorboard_logs_path))
         profiler.start()
         print(f"local rank: {torch.distributed.get_rank()} profiler initialized")
+        print(f"check profiler if it is running: {profiler.profiler} on rank {torch.distributed.get_rank()}")
 
     global_step = 0
     pbar = tqdm(total=args.train_iters, desc='Training')
@@ -349,7 +350,8 @@ def main():
             loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
 
             # Profiler
-            if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
+            # if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
+            if profiler:
                 profiler.step()
 
             # WandB and TensorBoard logging
@@ -376,7 +378,8 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput over steps {global_step}: {throughput}")
+                    print(f"elapsed_time_per_iteration: {elapsed_time_per_iteration} s")
+                    print(f"Throughput (TFLOPS) at step {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
@@ -420,54 +423,58 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
-        print(f"Stopping profiler on rank {torch.distributed.get_rank()}")
-        print(f"check profiler if it is running: {profiler.profile} on rank {torch.distributed.get_rank()}")
-        profiler.stop()
-        print(local_rank, profiler)
-        key_averages = profiler.key_averages()
-        
-        # 打印表格，按设备时间排序
-        print(key_averages.table(sort_by="self_cuda_time_total", row_limit=10))
-        
-        # 累加设备（CUDA）和 CPU 总时间
-        total_device_time = sum(item.device_time_total for item in key_averages)
-        total_cpu_time = sum(item.cpu_time_total for item in key_averages)
-
-        # 准备记录的数据
-        data = [
-            {
-                "Name": item.key,
-                "Device Time Total (ms)": item.device_time_total / 1e3,
-                "CPU Time Total (ms)": item.cpu_time_total / 1e3,
-                "Self Device Time Total (ms)": item.self_device_time_total / 1e3,
-                "Self CPU Time Total (ms)": item.self_cpu_time_total / 1e3,
-                "Calls": item.count,
-                "Input Shapes": item.input_shapes,
-                "Device Memory Usage (MB)": item.device_memory_usage / (1024 ** 2),
-                "Self Device Memory Usage (MB)": item.self_device_memory_usage / (1024 ** 2),
-                "CPU Memory Usage (MB)": item.cpu_memory_usage / (1024 ** 2),
-                "Self CPU Memory Usage (MB)": item.self_cpu_memory_usage / (1024 ** 2),
-            }
-            for item in key_averages
-        ]
-
-        # 打印总时间
-        print(f"Total Device Time: {total_device_time / 1e3:.2f} ms")
-        print(f"Total CPU Time: {total_cpu_time / 1e3:.2f} ms")
-        
-        # 保存为 Pandas DataFrame
-        df = pd.DataFrame(data)
-
-        # 使用 wandb 记录数据
-        if wandb_enabled:
-            wandb.log({'profiler_data': wandb.Table(dataframe=df)}, step=global_step)
-            wandb.log({'total_device_time_ms': total_device_time / 1e3}, step=global_step)
-            wandb.log({'total_cpu_time_ms': total_cpu_time / 1e3}, step=global_step)
-
-        import time
-        # profiler.export_chrome_trace(f'{args.tensorboard_logs_path}/trace_{time.strftime("%Y%m%d-%H%M%S")}.json')
-
+    # if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
+    if profiler:
+        try:
+            print(f"Stopping profiler on rank {torch.distributed.get_rank()}")
+            print(f"check profiler if it is running: {profiler.profiler} on rank {torch.distributed.get_rank()}")
+            print(local_rank, profiler)
+            key_averages = profiler.key_averages()
+            
+            # 打印表格，按设备时间排序
+            print(key_averages.table(sort_by="self_cuda_time_total", row_limit=10))
+            
+            # 累加设备（CUDA）和 CPU 总时间
+            total_device_time = sum(item.device_time_total for item in key_averages)
+            total_cpu_time = sum(item.cpu_time_total for item in key_averages)
+    
+            # 准备记录的数据
+            data = [
+                {
+                    "Name": item.key,
+                    "Device Time Total (ms)": item.device_time_total / 1e3,
+                    "CPU Time Total (ms)": item.cpu_time_total / 1e3,
+                    "Self Device Time Total (ms)": item.self_device_time_total / 1e3,
+                    "Self CPU Time Total (ms)": item.self_cpu_time_total / 1e3,
+                    "Calls": item.count,
+                    "Input Shapes": item.input_shapes,
+                    "Device Memory Usage (MB)": item.device_memory_usage / (1024 ** 2),
+                    "Self Device Memory Usage (MB)": item.self_device_memory_usage / (1024 ** 2),
+                    "CPU Memory Usage (MB)": item.cpu_memory_usage / (1024 ** 2),
+                    "Self CPU Memory Usage (MB)": item.self_cpu_memory_usage / (1024 ** 2),
+                }
+                for item in key_averages
+            ]
+    
+            # 打印总时间
+            print(f"Total Device Time: {total_device_time / 1e3:.2f} ms")
+            print(f"Total CPU Time: {total_cpu_time / 1e3:.2f} ms")
+            
+            # 保存为 Pandas DataFrame
+            df = pd.DataFrame(data)
+    
+            # 使用 wandb 记录数据
+            if wandb_enabled:
+                wandb.log({'profiler_data': wandb.Table(dataframe=df)}, step=global_step)
+                wandb.log({'total_device_time_ms': total_device_time / 1e3}, step=global_step)
+                wandb.log({'total_cpu_time_ms': total_cpu_time / 1e3}, step=global_step)
+    
+            import time
+            # profiler.export_chrome_trace(f'{args.tensorboard_logs_path}/trace_{time.strftime("%Y%m%d-%H%M%S")}.json')
+            
+            profiler.stop()
+        except Exception as e:
+            print(e)
 
     # Final evaluation
     avg_loss, perplexity = evaluate(model_engine, valid_dataloader, args.eval_iters, args)

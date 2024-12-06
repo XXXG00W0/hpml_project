@@ -359,7 +359,7 @@ def main():
                 writer.add_scalar('Learning-rate', learning_rate, global_step)
                 print(f"Learning rate: {learning_rate}")
 
-                # Log throughput (TFLOPS) over fix steps
+                # Log throughput
                 if args.log_throughput:
                     elapsed_time_per_iteration = elapsed_time / global_step
                     batch_size = args.micro_batch_size * args.world_size
@@ -368,7 +368,7 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput (TFLOPS) at step {global_step}: {throughput}")
+                    print(f"Throughput over steps {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
@@ -412,8 +412,7 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    if args.use_pytorch_profiler and profiler:
-        profiler.stop()
+    if args.use_pytorch_profiler:
         key_averages = profiler.key_averages()
         
         # print top 10 ops by self_cuda_time_total
@@ -456,7 +455,8 @@ def main():
 
         # import time
         # profiler.export_chrome_trace(f'{args.tensorboard_logs_path}/trace_{time.strftime("%Y%m%d-%H%M%S")}.json')
-
+        
+        profiler.stop()
 
     # Final evaluation
     avg_loss, perplexity = evaluate(model_engine, valid_dataloader, args.eval_iters, args)
