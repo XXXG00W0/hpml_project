@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=gpt2_pytorch
+#SBATCH --job-name=gpt2_dp
 #SBATCH --account=ece_gy_9143-2024fa
 #SBATCH --output=logs/%j_%x.out
-#SBATCH --partition=g2-standard-12
+#SBATCH --partition=g2-standard-24
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 #SBATCH --cpus-per-task=8
 #SBATCH --time=1:00:00
 #SBATCH --mem=32G
@@ -35,5 +35,6 @@ singularity exec --nv --overlay ${OVERLAY} ${SINGULARITY_CONTAINER} \
   --log-timers-to-tensorboard \
   --num-gpus 1 \
   --num-nodes 1 \
+  --framework dp \
   --use-pytorch-profiler \
   --seed 42"

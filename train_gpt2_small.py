@@ -4,9 +4,12 @@ import argparse
 import time
 import torch
 import ctypes
+import GPUtil
+import tabulate
 from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2LMHeadModel, GPT2Config, GPT2Tokenizer
 from torch.utils.tensorboard import SummaryWriter
+from torch.nn.parallel import DataParallel
 import pandas as pd
 import wandb
 from torch.profiler import profile, ProfilerActivity, tensorboard_trace_handler
@@ -46,7 +49,7 @@ def parse_args():
     # Training parameters
     parser.add_argument('--micro-batch-size', type=int, default=8, help='Micro batch size per GPU')
     parser.add_argument('--global-batch-size', type=int, default=32, help='Global batch size across all GPUs')
-    parser.add_argument('--train-iters', type=int, default=20, help='500 Total number of training iterations')
+    parser.add_argument('--train-iters', type=int, default=30, help='500 Total number of training iterations')
     parser.add_argument('--train-val-split', type=float, default=0.9, help='Train-Validation split ratio')
     parser.add_argument('--eval-iters', type=int, default=10, help='Number of iterations for evaluation')
 
@@ -161,6 +164,23 @@ def create_train_val_dataloader(train_dataset, valid_dataset, micro_batch_size):
     )
     return train_dataloader, valid_dataloader
 
+def get_gpu_info():
+    gpus = GPUtil.getGPUs()
+    gpu_list = []
+    for gpu in gpus:
+        gpu_info = {
+            "ID": gpu.id,
+            "Name": gpu.name,
+            "Load (%)": f"{gpu.load * 100:.1f}%",
+            "Free Memory (MB)": f"{gpu.memoryFree:.1f}",
+            "Used Memory (MB)": f"{gpu.memoryUsed:.1f}",
+            "Total Memory (MB)": f"{gpu.memoryTotal:.1f}",
+            "Temperature (°C)": f"{gpu.temperature}°C"
+        }
+        gpu_list.append(gpu_info)
+    
+    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
     total_loss = 0.0
@@ -210,6 +230,8 @@ def create_warmup_cosine_schedule(args, optimizer):
 
 def setup_no_distributed(model, args):
     model = model.to('cuda')
+    if args.framework == 'dp':
+        model = DataParallel(model)
     optimizer = torch.optim.AdamW(model.parameters(), 
                                   lr=args.lr, 
                                   betas=(args.adam_beta1, args.adam_beta2), 
@@ -315,7 +337,7 @@ def main():
     if args.use_pytorch_profiler:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-            schedule=torch.profiler.schedule(wait=10, warmup=5, active=10, repeat=10),
+            schedule=torch.profiler.schedule(wait=10, warmup=5, active=15, repeat=1),
             record_shapes=True, 
             profile_memory=True, 
             with_stack=False,
@@ -346,6 +368,7 @@ def main():
 
             # WandB and TensorBoard logging
             if global_step % args.log_interval == 0 and global_step != 0:
+                elapsed_time = timers('interval-time').stop(barrier=args.framework is not None)
                 elapsed_time = timers('interval-time').elapsed(barrier=args.framework is not None)
 
                 # Log loss
@@ -376,12 +399,16 @@ def main():
                 mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
-                print(f"Memory usage: {mem_usage} MB")
+                print(f"Torch reports memory usage: {mem_usage} MB")
+                print(f"GPUtil reports memory usage: \n{get_gpu_info()}")
 
                 # Log time to tensorboard
                 if args.log_timers_to_tensorboard:
                     writer.add_scalar('iteration-time', elapsed_time_per_iteration, global_step)
                     if wandb_enabled: wandb.log({'iteration-time': elapsed_time_per_iteration}, global_step)
+
+                # Resume training timer
+                timers('interval-time', log_level=0).start(barrier=args.framework is not None)
 
             # Validation
             if global_step % args.eval_interval == 0 and global_step != 0:
@@ -467,17 +494,11 @@ def main():
 
     # Save final model
     save_path = os.path.join(args.checkpoint_path, f'checkpoint-{global_step}')
-    if args.framework == 'deepspeed':
-        model_engine.save_checkpoint(save_path)
-    else:
-        torch.save(model_engine.state_dict(), save_path)
+    torch.save(model_engine.state_dict(), save_path)
     print(f"Final checkpoint saved at {save_path}")
 
     writer.close()
     if wandb_enabled: wandb.finish()
-
-    if args.framework == 'torch' and torch.distributed.is_initialized():
-        torch.distributed.destroy_process_group()
 
 if __name__ == '__main__':
     main()

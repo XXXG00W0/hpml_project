@@ -3,7 +3,7 @@ import math
 import argparse
 import time
 import torch
-import ctypes
+import ctypes, tabulate, GPUtil
 from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2LMHeadModel, GPT2Config, GPT2Tokenizer
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -165,6 +165,23 @@ def create_train_val_dataloader(train_dataset, valid_dataset, micro_batch_size):
     )
     return train_dataloader, valid_dataloader
 
+def get_gpu_info():
+    gpus = GPUtil.getGPUs()
+    gpu_list = []
+    for gpu in gpus:
+        gpu_info = {
+            "ID": gpu.id,
+            "Name": gpu.name,
+            "Load (%)": f"{gpu.load * 100:.1f}%",
+            "Free Memory (MB)": f"{gpu.memoryFree:.1f}",
+            "Used Memory (MB)": f"{gpu.memoryUsed:.1f}",
+            "Total Memory (MB)": f"{gpu.memoryTotal:.1f}",
+            "Temperature (°C)": f"{gpu.temperature}°C"
+        }
+        gpu_list.append(gpu_info)
+    
+    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
     total_loss = 0.0
@@ -294,6 +311,7 @@ def main():
     # Calculate gradient_accumulation_steps
     world_size = int(os.getenv('WORLD_SIZE', '1'))
     gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
+    print("World Size: ", world_size)
 
     # Set up DeepSpeed configuration
     total_training_steps = args.train_iters
@@ -311,20 +329,19 @@ def main():
     # Initialize WandB offline
     wandb_enabled = False
     try:
-        wandb.init(project=args.wandb_project+' torch')
+        wandb.init(project=args.wandb_project+' ddp')
         wandb.config.update(args)
         wandb_enabled = True
     except Exception as e:
         print(f"Error initializing WandB: {e}")
 
     # PyTorch Profiler
-    profiler_ranks = [int(rank) for rank in args.profile_ranks.split(',')]
-    profiler = None
+    profiler_ranks = [0]
     print(f"Profiler ranks: {profiler_ranks}, local rank: {torch.distributed.get_rank()}")
     if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-            schedule=torch.profiler.schedule(wait=10, warmup=5, active=10, repeat=10),
+            schedule=torch.profiler.schedule(wait=5, warmup=5, active=10, repeat=1),
             record_shapes=True, 
             profile_memory=True, 
             with_stack=False,
@@ -349,13 +366,13 @@ def main():
             
             loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
 
-            # Profiler
-            # if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
-            if profiler:
+            # Profiler only active on rank 0
+            if args.use_pytorch_profiler and torch.distributed.get_rank() == 0:
                 profiler.step()
 
             # WandB and TensorBoard logging
             if global_step % args.log_interval == 0 and global_step != 0:
+                elapsed_time = timers('interval-time').stop(barrier=args.framework is not None)
                 elapsed_time = timers('interval-time').elapsed(barrier=args.framework is not None)
 
                 # Log loss
@@ -387,12 +404,15 @@ def main():
                 mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
-                print(f"Memory usage: {mem_usage} MB")
+                print(f"Torch reports memory usage: {mem_usage} MB")
+                print(f"GPUtil reports memory usage: \n{get_gpu_info()}")
 
                 # Log time to tensorboard
                 if args.log_timers_to_tensorboard:
                     writer.add_scalar('iteration-time', elapsed_time_per_iteration, global_step)
                     if wandb_enabled: wandb.log({'iteration-time': elapsed_time_per_iteration}, global_step)
+
+                timers('interval-time', log_level=0).start(barrier=args.framework is not None)
 
             # Validation
             if global_step % args.eval_interval == 0 and global_step != 0:
@@ -423,8 +443,7 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    # if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
-    if profiler:
+    if args.use_pytorch_profiler and torch.distributed.get_rank() == 0:
         try:
             print(f"Stopping profiler on rank {torch.distributed.get_rank()}")
             print(f"check profiler if it is running: {profiler.profiler} on rank {torch.distributed.get_rank()}")
@@ -474,7 +493,7 @@ def main():
             
             profiler.stop()
         except Exception as e:
-            print(e)
+            print(f"Failed to stop profiler on rank {torch.distributed.get_rank()} with error below:\n {e}")
 
     # Final evaluation
     avg_loss, perplexity = evaluate(model_engine, valid_dataloader, args.eval_iters, args)
@@ -485,16 +504,13 @@ def main():
 
     # Save final model
     save_path = os.path.join(args.checkpoint_path, f'checkpoint-{global_step}')
-    if args.framework == 'deepspeed':
-        model_engine.save_checkpoint(save_path)
-    else:
-        torch.save(model_engine.state_dict(), save_path)
+    torch.save(model_engine.state_dict(), save_path)
     print(f"Final checkpoint saved at {save_path}")
 
     writer.close()
     if wandb_enabled: wandb.finish()
 
-    if args.framework == 'torch' and torch.distributed.is_initialized():
+    if torch.distributed.is_initialized():
         torch.distributed.destroy_process_group()
 
 if __name__ == '__main__':

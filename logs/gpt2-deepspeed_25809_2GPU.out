@@ -1,0 +1,461 @@
+[2024-12-08 17:03:51,951] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The cache directory for DeepSpeed Triton autotune, /scratch/zl5604/triton_cache, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[2024-12-08 17:04:01,635] [WARNING] [runner.py:215:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+Detected VISIBLE_DEVICES=0,1: setting --include=localhost:0,1
+[2024-12-08 17:04:01,636] [INFO] [runner.py:607:main] cmd = /ext3/miniforge3/envs/deepspeed/bin/python3.12 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMCwgMV19 --master_addr=127.0.0.1 --master_port=29500 --enable_each_rank_log=None train_gpt2_small_deepspeed.py
+[2024-12-08 17:04:03,423] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The cache directory for DeepSpeed Triton autotune, /scratch/zl5604/triton_cache, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[2024-12-08 17:04:06,048] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_DEV_PACKAGE=libnccl-dev=2.17.1-1+cuda12.1
+[2024-12-08 17:04:06,048] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_DEV_PACKAGE_VERSION=2.17.1-1
+[2024-12-08 17:04:06,048] [INFO] [launch.py:139:main] 0 NCCL_VERSION=2.17.1-1
+[2024-12-08 17:04:06,048] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_DEV_PACKAGE_NAME=libnccl-dev
+[2024-12-08 17:04:06,048] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_PACKAGE=libnccl2=2.17.1-1+cuda12.1
+[2024-12-08 17:04:06,049] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_PACKAGE_NAME=libnccl2
+[2024-12-08 17:04:06,049] [INFO] [launch.py:139:main] 0 NV_LIBNCCL_PACKAGE_VERSION=2.17.1-1
+[2024-12-08 17:04:06,049] [INFO] [launch.py:146:main] WORLD INFO DICT: {'localhost': [0, 1]}
+[2024-12-08 17:04:06,049] [INFO] [launch.py:152:main] nnodes=1, num_local_procs=2, node_rank=0
+[2024-12-08 17:04:06,049] [INFO] [launch.py:163:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0, 1]})
+[2024-12-08 17:04:06,049] [INFO] [launch.py:164:main] dist_world_size=2
+[2024-12-08 17:04:06,049] [INFO] [launch.py:168:main] Setting CUDA_VISIBLE_DEVICES=0,1
+[2024-12-08 17:04:06,052] [INFO] [launch.py:256:main] process 5883 spawned with command: ['/ext3/miniforge3/envs/deepspeed/bin/python3.12', '-u', 'train_gpt2_small_deepspeed.py', '--local_rank=0']
+[2024-12-08 17:04:06,055] [INFO] [launch.py:256:main] process 5884 spawned with command: ['/ext3/miniforge3/envs/deepspeed/bin/python3.12', '-u', 'train_gpt2_small_deepspeed.py', '--local_rank=1']
+[2024-12-08 17:04:09,575] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-12-08 17:04:09,579] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The cache directory for DeepSpeed Triton autotune, /scratch/zl5604/triton_cache, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+Warning: The cache directory for DeepSpeed Triton autotune, /scratch/zl5604/triton_cache, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+Current working directory: /scratch/zl5604/projectCurrent working directory: /scratch/zl5604/project
+
+DeepSpeed specified local rank: 1; sbatch specified local rank: 1DeepSpeed specified local rank: 0; sbatch specified local rank: 0
+
+TensorBoard logs path: ./tb_logs
+TensorBoard logs path: ./tb_logs
+[2024-12-08 17:04:18,247] [INFO] [logging.py:128:log_dist] [Rank -1] DeepSpeed info: version=0.16.0, git-hash=unknown, git-branch=unknown
+[2024-12-08 17:04:18,247] [INFO] [comm.py:652:init_distributed] cdb=None
+[2024-12-08 17:04:18,247] [INFO] [logging.py:128:log_dist] [Rank -1] DeepSpeed info: version=0.16.0, git-hash=unknown, git-branch=unknown
+[2024-12-08 17:04:18,247] [INFO] [comm.py:652:init_distributed] cdb=None
+[2024-12-08 17:04:18,247] [INFO] [comm.py:683:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-12-08 17:04:18,264] [INFO] [config.py:733:__init__] Config mesh_device None world_size = 2
+[2024-12-08 17:04:18,278] [INFO] [config.py:733:__init__] Config mesh_device None world_size = 2
+[2024-12-08 17:04:19,703] [INFO] [logging.py:128:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+Using /home/zl5604/.cache/torch_extensions/py312_cu121 as PyTorch extensions root...
+Using /home/zl5604/.cache/torch_extensions/py312_cu121 as PyTorch extensions root...
+Emitting ninja build file /home/zl5604/.cache/torch_extensions/py312_cu121/cpu_adam/build.ninja...
+Building extension module cpu_adam...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 2.436227798461914 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000150, betas=(0.900000, 0.950000), weight_decay=0.010000, adam_w=1
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 2.4423017501831055 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000150, betas=(0.900000, 0.950000), weight_decay=0.010000, adam_w=1
+[2024-12-08 17:04:23,426] [INFO] [logging.py:128:log_dist] [Rank 0] Using DeepSpeed Optimizer param name adamw as basic optimizer
+[2024-12-08 17:04:23,426] [INFO] [logging.py:128:log_dist] [Rank 0] Removing param_group that has no 'params' in the basic Optimizer
+[2024-12-08 17:04:23,430] [INFO] [logging.py:128:log_dist] [Rank 0] DeepSpeed Basic Optimizer = DeepSpeedCPUAdam
+[2024-12-08 17:04:23,430] [INFO] [utils.py:59:is_zero_supported_optimizer] Checking ZeRO support for optimizer=DeepSpeedCPUAdam type=<class 'deepspeed.ops.adam.cpu_adam.DeepSpeedCPUAdam'>
+[2024-12-08 17:04:23,430] [INFO] [logging.py:128:log_dist] [Rank 0] Creating torch.float32 ZeRO stage 2 optimizer
+[2024-12-08 17:04:23,430] [INFO] [stage_1_and_2.py:149:__init__] Reduce bucket size 500000000
+[2024-12-08 17:04:23,430] [INFO] [stage_1_and_2.py:150:__init__] Allgather bucket size 500000000
+[2024-12-08 17:04:23,430] [INFO] [stage_1_and_2.py:151:__init__] CPU Offload: True
+[2024-12-08 17:04:23,430] [INFO] [stage_1_and_2.py:152:__init__] Round robin gradient partitioning: False
+[2024-12-08 17:04:24,575] [WARNING] [lr_schedules.py:855:get_lr] Attempting to get learning rate from scheduler before it has started
+[2024-12-08 17:04:24,609] [INFO] [utils.py:781:see_memory_usage] Before initializing optimizer states
+[2024-12-08 17:04:24,610] [INFO] [utils.py:782:see_memory_usage] MA 0.62 GB         Max_MA 0.62 GB         CA 0.62 GB         Max_CA 1 GB 
+[2024-12-08 17:04:24,610] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 5.3 GB, percent = 5.7%
+[2024-12-08 17:04:24,976] [INFO] [utils.py:781:see_memory_usage] After initializing optimizer states
+[2024-12-08 17:04:24,977] [INFO] [utils.py:782:see_memory_usage] MA 0.62 GB         Max_MA 0.62 GB         CA 0.62 GB         Max_CA 1 GB 
+[2024-12-08 17:04:24,978] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 5.58 GB, percent = 5.9%
+[2024-12-08 17:04:24,978] [INFO] [stage_1_and_2.py:544:__init__] optimizer state initialized
+[2024-12-08 17:04:25,133] [INFO] [utils.py:781:see_memory_usage] After initializing ZeRO optimizer
+[2024-12-08 17:04:25,134] [INFO] [utils.py:782:see_memory_usage] MA 0.62 GB         Max_MA 0.62 GB         CA 0.62 GB         Max_CA 1 GB 
+[2024-12-08 17:04:25,134] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 5.59 GB, percent = 6.0%
+[2024-12-08 17:04:25,136] [INFO] [logging.py:128:log_dist] [Rank 0] DeepSpeed Final Optimizer = DeepSpeedZeroOptimizer
+[2024-12-08 17:04:25,136] [WARNING] [lr_schedules.py:855:get_lr] Attempting to get learning rate from scheduler before it has started
+[2024-12-08 17:04:25,136] [INFO] [logging.py:128:log_dist] [Rank 0] DeepSpeed using configured LR scheduler = WarmupCosineLR
+[2024-12-08 17:04:25,136] [INFO] [logging.py:128:log_dist] [Rank 0] DeepSpeed LR Scheduler = <deepspeed.runtime.lr_schedules.WarmupCosineLR object at 0x14c2311c5280>
+[2024-12-08 17:04:25,136] [INFO] [logging.py:128:log_dist] [Rank 0] step=0, skipped=0, lr=[0.0], mom=[[0.9, 0.95]]
+[2024-12-08 17:04:25,137] [INFO] [config.py:999:print] DeepSpeedEngine configuration:
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True, 'use_gds': False}
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   amp_enabled .................. False
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   amp_params ................... False
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   bfloat16_enabled ............. False
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   bfloat16_immediate_grad_update  False
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   checkpoint_parallel_write_pipeline  False
+[2024-12-08 17:04:25,137] [INFO] [config.py:1003:print]   checkpoint_tag_validation_enabled  True
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   checkpoint_tag_validation_fail  False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x14c22ba4ff80>
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   communication_data_type ...... None
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   curriculum_enabled_legacy .... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   curriculum_params_legacy ..... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   data_efficiency_enabled ...... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   dataloader_drop_last ......... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   disable_allgather ............ False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   dump_state ................... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   dynamic_loss_scale_args ...... None
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_enabled ........... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_gas_boundary_resolution  1
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_layer_num ......... 0
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_max_iter .......... 100
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_stability ......... 1e-06
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_tol ............... 0.01
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   eigenvalue_verbose ........... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   elasticity_enabled ........... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   fp16_auto_cast ............... None
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   fp16_enabled ................. False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   fp16_master_weights_and_gradients  False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   global_rank .................. 0
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   grad_accum_dtype ............. None
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   gradient_accumulation_steps .. 1
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   gradient_clipping ............ 1.0
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   gradient_predivide_factor .... 1.0
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   graph_harvesting ............. False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   initial_dynamic_scale ........ 65536
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   load_universal_checkpoint .... False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   loss_scale ................... 0
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   memory_breakdown ............. False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   mics_hierarchial_params_gather  False
+[2024-12-08 17:04:25,138] [INFO] [config.py:1003:print]   mics_shard_size .............. -1
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') comet=CometConfig(enabled=False, samples_log_interval=100, project=None, workspace=None, api_key=None, experiment_name=None, experiment_key=None, online=None, mode=None) wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName')
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   optimizer_legacy_fusion ...... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   optimizer_name ............... adamw
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   optimizer_params ............. {'lr': 0.00015, 'betas': [0.9, 0.95], 'weight_decay': 0.01}
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   pld_enabled .................. False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   pld_params ................... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   prescale_gradients ........... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   scheduler_name ............... WarmupCosineLR
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   scheduler_params ............. {'warmup_min_ratio': 0.1, 'cos_min_ratio': 0.001, 'warmup_num_steps': 3, 'total_num_steps': 31}
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   seq_parallel_communication_data_type  torch.float32
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   sparse_attention ............. None
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   sparse_gradients_enabled ..... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   steps_per_print .............. None
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   timers_config ................ enabled=True synchronized=True
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   train_batch_size ............. 8
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   train_micro_batch_size_per_gpu  4
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   use_data_before_expert_parallel_  False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   use_node_local_storage ....... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   wall_clock_breakdown ......... False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   weight_quantization_config ... None
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   world_size ................... 2
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   zero_allow_untested_optimizer  False
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   zero_config .................. stage=2 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500000000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500000000 overlap_comm=True load_from_fp32_weights=True elastic_checkpoint=False offload_param=None offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='cpu', nvme_path=None, buffer_count=4, pin_memory=True, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1000000000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50000000 param_persistence_threshold=100000 model_persistence_threshold=9223372036854775807 max_live_parameters=1000000000 max_reuse_distance=1000000000 gather_16bit_weights_on_model_save=False module_granularity_threshold=0 use_all_reduce_for_fetch_params=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   zero_enabled ................. True
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   zero_force_ds_cpu_optimizer .. True
+[2024-12-08 17:04:25,139] [INFO] [config.py:1003:print]   zero_optimization_stage ...... 2
+[2024-12-08 17:04:25,140] [INFO] [config.py:989:print_user_config]   json = {
+    "train_batch_size": 8, 
+    "gradient_accumulation_steps": 1, 
+    "fp16": {
+        "enabled": false
+    }, 
+    "optimizer": {
+        "type": "AdamW", 
+        "params": {
+            "lr": 0.00015, 
+            "betas": [0.9, 0.95], 
+            "weight_decay": 0.01
+        }
+    }, 
+    "scheduler": {
+        "type": "WarmupCosineLR", 
+        "params": {
+            "warmup_min_ratio": 0.1, 
+            "cos_min_ratio": 0.001, 
+            "warmup_num_steps": 3, 
+            "total_num_steps": 31
+        }
+    }, 
+    "gradient_clipping": 1.0, 
+    "zero_optimization": {
+        "stage": 2, 
+        "offload_optimizer": {
+            "device": "cpu", 
+            "pin_memory": true
+        }, 
+        "overlap_comm": true
+    }
+}
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: ziyil0323. Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: ziyil0323. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.18.7
+wandb: Run data is saved locally in /scratch/zl5604/project/wandb/run-20241208_170644-4ds5m5no
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run giddy-durian-17
+wandb: ⭐️ View project at https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed
+wandb: 🚀 View run at https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed/runs/4ds5m5no
+wandb: Tracking run with wandb version 0.18.7
+wandb: Run data is saved locally in /scratch/zl5604/project/wandb/run-20241208_170644-sgm0xz5w
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run swept-tree-18
+wandb: ⭐️ View project at https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed
+wandb: 🚀 View run at https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed/runs/sgm0xz5w
+Profiler initialized
+Training:   0%|                                                                                                                                                           | 0/31 [00:00<?, ?it/s]Training:   0%|                                                                                                                                                           | 0/31 [00:00<?, ?it/s]Training:   3%|████▋                                                                                                                                              | 1/31 [00:04<02:29,  4.98s/it]Training:   3%|████▋                                                                                                                                              | 1/31 [00:04<02:29,  4.98s/it]Training:   6%|█████████▍                                                                                                                                         | 2/31 [00:06<01:20,  2.78s/it]Training:   6%|█████████▍                                                                                                                                         | 2/31 [00:06<01:20,  2.78s/it]Training:  10%|██████████████▏                                                                                                                                    | 3/31 [00:07<00:58,  2.09s/it]Training:  10%|██████████████▏                                                                                                                                    | 3/31 [00:07<00:58,  2.09s/it]Training:  13%|██████████████████▉                                                                                                                                | 4/31 [00:08<00:47,  1.76s/it]Training:  13%|██████████████████▉                                                                                                                                | 4/31 [00:08<00:47,  1.76s/it]Training:  16%|███████████████████████▋                                                                                                                           | 5/31 [00:09<00:40,  1.57s/it]Training:  16%|███████████████████████▋                                                                                                                           | 5/31 [00:09<00:40,  1.57s/it]Training:  19%|████████████████████████████▍                                                                                                                      | 6/31 [00:11<00:36,  1.47s/it]Training:  19%|████████████████████████████▍                                                                                                                      | 6/31 [00:11<00:36,  1.47s/it]Training:  23%|█████████████████████████████████▏                                                                                                                 | 7/31 [00:12<00:33,  1.40s/it]Training:  23%|█████████████████████████████████▏                                                                                                                 | 7/31 [00:12<00:33,  1.40s/it]Training:  26%|█████████████████████████████████████▉                                                                                                             | 8/31 [00:13<00:30,  1.35s/it]Training:  26%|█████████████████████████████████████▉                                                                                                             | 8/31 [00:13<00:30,  1.35s/it]Training:  29%|██████████████████████████████████████████▋                                                                                                        | 9/31 [00:14<00:28,  1.31s/it]Training:  29%|██████████████████████████████████████████▋                                                                                                        | 9/31 [00:14<00:28,  1.31s/it]Training:  32%|███████████████████████████████████████████████                                                                                                   | 10/31 [00:16<00:27,  1.30s/it]Training:  32%|███████████████████████████████████████████████                                                                                                   | 10/31 [00:16<00:27,  1.33s/it]Training:  35%|███████████████████████████████████████████████████▊                                                                                              | 11/31 [00:17<00:26,  1.32s/it]Training:  35%|███████████████████████████████████████████████████▊                                                                                              | 11/31 [00:17<00:26,  1.31s/it]Training:  39%|████████████████████████████████████████████████████████▌                                                                                         | 12/31 [00:18<00:24,  1.30s/it]Training:  39%|████████████████████████████████████████████████████████▌                                                                                         | 12/31 [00:18<00:24,  1.30s/it]Training:  42%|█████████████████████████████████████████████████████████████▏                                                                                    | 13/31 [00:20<00:23,  1.29s/it]Training:  42%|█████████████████████████████████████████████████████████████▏                                                                                    | 13/31 [00:20<00:23,  1.28s/it]Training:  45%|█████████████████████████████████████████████████████████████████▉                                                                                | 14/31 [00:21<00:21,  1.28s/it]Training:  45%|█████████████████████████████████████████████████████████████████▉                                                                                | 14/31 [00:21<00:21,  1.28s/it]Training:  48%|██████████████████████████████████████████████████████████████████████▋                                                                           | 15/31 [00:22<00:20,  1.27s/it]Training:  48%|██████████████████████████████████████████████████████████████████████▋                                                                           | 15/31 [00:22<00:20,  1.27s/it][rank0]:[W1208 17:07:09.628017746 CPUAllocator.cpp:249] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event
+Step 15: loss 2.550994634628296Step 15: loss 2.550994634628296
+
+Average learning rate: 8.346393837204032e-05Average learning rate: 8.346393837204032e-05
+
+elapsed_time_per_iteration: 1.5936281204223632s
+elapsed_time_per_iteration: 1.5936440785725912sThroughput average on 15: 4.392216278754474
+
+Throughput average on 15: 4.39217229675865
+Torch reports memory usage: 651.70654296875 MB
+Torch reports memory usage: 651.70654296875 MB
+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |      1240.0      |     21355.0      |      23034.0      |      54.0°C      |
+| 1  | NVIDIA L4 |  96.0%   |      1266.0      |     21329.0      |      23034.0      |      62.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |      1240.0      |     21355.0      |      23034.0      |      54.0°C      |
+| 1  | NVIDIA L4 |  96.0%   |      1266.0      |     21329.0      |      23034.0      |      62.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+
+Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s][A
+Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s][A
+Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:03,  2.29it/s][A
+Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:04,  2.24it/s][A
+Validation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.57it/s][A
+Validation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.52it/s][A
+Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.63it/s][A
+Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.60it/s][A
+Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.69it/s][A
+Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.64it/s][A
+Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.73it/s][A
+Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.68it/s][A
+Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.73it/s][A
+Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.70it/s][A
+Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.75it/s][A
+Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.69it/s][A
+Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:02<00:00,  2.77it/s][A
+Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:03<00:00,  2.71it/s][A
+Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.76it/s][A
+Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.73it/s][A
+Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.77it/s][AValidation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.69it/s]
+
+Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.70it/s][AValidation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.65it/s]
+Validation loss: 2.3079623222351073, Perplexity: 10.053917124864904
+Validation loss: 2.3079623222351073, Perplexity: 10.053917124864904
+Checkpoint saved at ./checkpoints/checkpoint-15
+Training:  52%|███████████████████████████████████████████████████████████████████████████▎                                                                      | 16/31 [00:40<01:33,  6.26s/it]Checkpoint saved at ./checkpoints/checkpoint-15
+Training:  52%|███████████████████████████████████████████████████████████████████████████▎                                                                      | 16/31 [00:42<01:40,  6.73s/it]Training:  55%|████████████████████████████████████████████████████████████████████████████████                                                                  | 17/31 [00:43<01:11,  5.09s/it]Training:  55%|████████████████████████████████████████████████████████████████████████████████                                                                  | 17/31 [00:43<01:13,  5.23s/it]Training:  58%|████████████████████████████████████████████████████████████████████████████████████▊                                                             | 18/31 [00:44<00:51,  3.95s/it]Training:  58%|████████████████████████████████████████████████████████████████████████████████████▊                                                             | 18/31 [00:44<00:52,  4.05s/it]Training:  61%|█████████████████████████████████████████████████████████████████████████████████████████▍                                                        | 19/31 [00:45<00:37,  3.15s/it]Training:  61%|█████████████████████████████████████████████████████████████████████████████████████████▍                                                        | 19/31 [00:45<00:38,  3.22s/it]Training:  65%|██████████████████████████████████████████████████████████████████████████████████████████████▏                                                   | 20/31 [00:47<00:28,  2.59s/it]Training:  65%|██████████████████████████████████████████████████████████████████████████████████████████████▏                                                   | 20/31 [00:47<00:29,  2.64s/it]Training:  68%|██████████████████████████████████████████████████████████████████████████████████████████████████▉                                               | 21/31 [00:48<00:22,  2.20s/it]Training:  68%|██████████████████████████████████████████████████████████████████████████████████████████████████▉                                               | 21/31 [00:48<00:22,  2.23s/it]Training:  71%|███████████████████████████████████████████████████████████████████████████████████████████████████████▌                                          | 22/31 [00:49<00:17,  1.93s/it]Training:  71%|███████████████████████████████████████████████████████████████████████████████████████████████████████▌                                          | 22/31 [00:49<00:17,  1.95s/it]Training:  74%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▎                                     | 23/31 [00:51<00:13,  1.74s/it]Training:  74%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▎                                     | 23/31 [00:51<00:14,  1.75s/it]Training:  77%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████                                 | 24/31 [00:52<00:11,  1.60s/it]Training:  77%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████                                 | 24/31 [00:52<00:11,  1.61s/it]Training:  81%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋                            | 25/31 [00:53<00:09,  1.51s/it]Training:  81%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋                            | 25/31 [00:57<00:15,  2.55s/it]Training:  84%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍                       | 26/31 [00:58<00:12,  2.46s/it]Training:  84%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍                       | 26/31 [00:58<00:10,  2.16s/it]Training:  87%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏                  | 27/31 [00:59<00:08,  2.11s/it]Training:  87%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏                  | 27/31 [00:59<00:07,  1.90s/it]Training:  90%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊              | 28/31 [01:00<00:05,  1.87s/it]Training:  90%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊              | 28/31 [01:00<00:05,  1.72s/it]Training:  94%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌         | 29/31 [01:02<00:03,  1.69s/it]Training:  94%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌         | 29/31 [01:02<00:03,  1.59s/it]Training:  97%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎    | 30/31 [01:03<00:01,  1.57s/it]Training:  97%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎    | 30/31 [01:03<00:01,  1.50s/it]Step 30: loss 2.3322689533233643Step 30: loss 2.3322689533233643
+
+Average learning rate: 1.5e-07
+Average learning rate: 1.5e-07
+elapsed_time_per_iteration: 1.2305411338806151s
+Throughput average on 15: 5.688196176527882elapsed_time_per_iteration: 1.232868496576945s
+
+Throughput average on 15: 5.67745821410333
+Torch reports memory usage: 651.70654296875 MB
+Torch reports memory usage: 651.70654296875 MB
+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |      1080.0      |     21515.0      |      23034.0      |      59.0°C      |
+| 1  | NVIDIA L4 |  100.0%  |      1106.0      |     21489.0      |      23034.0      |      67.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |      1080.0      |     21515.0      |      23034.0      |      59.0°C      |
+| 1  | NVIDIA L4 |  100.0%  |      1106.0      |     21489.0      |      23034.0      |      67.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+
+
+
+Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s]Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s][A[A
+Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:04,  2.20it/s][A
+Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:04,  2.19it/s][A
+Validation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.50it/s]
+[AValidation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.50it/s][A
+Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.59it/s][A
+Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.58it/s][A
+Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.67it/s][A
+Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.63it/s][A
+Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.71it/s][A
+Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.64it/s][A
+Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.72it/s][A
+Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.67it/s][A
+Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.74it/s][A
+Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.67it/s][A
+Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:02<00:00,  2.76it/s][A
+Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:03<00:00,  2.69it/s][A
+Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.76it/s][A
+Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.67it/s][A
+Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.77it/s][AValidation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.68it/s]
+
+Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.72it/s][AValidation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.63it/s]
+Validation loss: 2.288873088359833, Perplexity: 9.86381576683871
+Validation loss: 2.288873088359833, Perplexity: 9.86381576683871
+Checkpoint saved at ./checkpoints/checkpoint-30
+Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 31/31 [01:21<00:00,  6.33s/it]Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 31/31 [01:21<00:00,  2.62s/it]
+Checkpoint saved at ./checkpoints/checkpoint-30
+Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 31/31 [01:22<00:00,  6.85s/it]Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 31/31 [01:22<00:00,  2.67s/it]
+Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s]Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:03,  2.35it/s]Validation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.55it/s]Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.61it/s]Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.63it/s]Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.63it/s]Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.64it/s]Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.64it/s]Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:03<00:00,  2.64it/s]Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.64it/s]Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.75it/s]Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.64it/s]
+Final Validation loss: 2.288873088359833, Perplexity: 9.86381576683871
+[rank1]:[W1208 17:08:11.261186383 ProcessGroupNCCL.cpp:4115] [PG ID 0 PG GUID 0 Rank 1]  using GPU 1 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect.Specify device_ids in barrier() to force use of a particular device,or call init_process_group() with a device_id.
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                          ProfilerStep*         0.00%       0.000us         0.00%       0.000us       0.000us       32.369s       199.56%       32.369s        1.618s           0 b           0 b           0 b           0 b            20  
+                                               aten::mm         0.12%      38.246ms         0.19%      59.703ms      59.703us        4.836s        29.82%        4.836s       4.836ms           0 b           0 b      55.29 Gb      55.29 Gb          1000  
+                                            aten::addmm         0.16%      49.797ms         0.24%      75.527ms      78.674us        2.221s        13.70%        2.221s       2.314ms           0 b           0 b      50.62 Gb      50.55 Gb           960  
+                                              aten::mul         0.12%      38.627ms         0.20%      64.409ms      32.862us        1.819s        11.21%        1.819s     927.949us          80 b           0 b     171.56 Gb     171.56 Gb          1960  
+void cutlass::Kernel<cutlass_80_simt_sgemm_256x128_8...         0.00%       0.000us         0.00%       0.000us       0.000us        1.811s        11.16%        1.811s       3.695ms           0 b           0 b           0 b           0 b           490  
+                                     record_param_comms         0.01%       3.787ms         0.02%       5.263ms      87.710us        1.636s        10.09%        1.636s      27.264ms           0 b           0 b           0 b           0 b            60  
+                                ampere_sgemm_128x128_tn         0.00%       0.000us         0.00%       0.000us       0.000us        1.589s         9.80%        1.589s      79.465ms           0 b           0 b           0 b           0 b            20  
+                                 ampere_sgemm_128x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us        1.242s         7.66%        1.242s       2.588ms           0 b           0 b           0 b           0 b           480  
+                                            aten::copy_         0.11%      34.437ms         1.43%     458.434ms     150.751us        1.240s         7.64%        1.240s     407.659us           0 b           0 b           0 b           0 b          3041  
+ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevComm*...         0.00%       0.000us         0.00%       0.000us       0.000us        1.237s         7.62%        1.237s      61.827ms           0 b           0 b           0 b           0 b            20  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 32.034s
+Self CUDA time total: 16.220s
+
+Total Device Time: 98488.76 ms
+Total CPU Time: 93290.33 ms
+Validation:   0%|                                                                                                                                                         | 0/10 [00:00<?, ?it/s]Validation:  10%|██████████████▌                                                                                                                                  | 1/10 [00:00<00:03,  2.25it/s]Validation:  20%|█████████████████████████████                                                                                                                    | 2/10 [00:00<00:03,  2.54it/s]Validation:  30%|███████████████████████████████████████████▌                                                                                                     | 3/10 [00:01<00:02,  2.65it/s]Validation:  40%|██████████████████████████████████████████████████████████                                                                                       | 4/10 [00:01<00:02,  2.79it/s]Validation:  50%|████████████████████████████████████████████████████████████████████████▌                                                                        | 5/10 [00:01<00:01,  2.76it/s]Validation:  60%|███████████████████████████████████████████████████████████████████████████████████████                                                          | 6/10 [00:02<00:01,  2.77it/s]Validation:  70%|█████████████████████████████████████████████████████████████████████████████████████████████████████▌                                           | 7/10 [00:02<00:01,  2.79it/s]Validation:  80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                             | 8/10 [00:02<00:00,  2.78it/s]Validation:  90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌              | 9/10 [00:03<00:00,  2.77it/s]Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.78it/s]Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:03<00:00,  2.71it/s]
+Final Validation loss: 2.288873088359833, Perplexity: 9.86381576683871
+[rank0]:[W1208 17:08:24.748674014 ProcessGroupNCCL.cpp:4115] [PG ID 0 PG GUID 0 Rank 0]  using GPU 0 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect.Specify device_ids in barrier() to force use of a particular device,or call init_process_group() with a device_id.
+[2024-12-08 17:08:24,512] [INFO] [logging.py:128:log_dist] [Rank 0] [Torch] Checkpoint global_step31 is about to be saved!
+[2024-12-08 17:08:24,521] [INFO] [logging.py:128:log_dist] [Rank 0] Saving model checkpoint: ./checkpoints/checkpoint-31/global_step31/mp_rank_00_model_states.pt
+[2024-12-08 17:08:24,521] [INFO] [torch_checkpoint_engine.py:21:save] [Torch] Saving ./checkpoints/checkpoint-31/global_step31/mp_rank_00_model_states.pt...
+[2024-12-08 17:08:29,193] [INFO] [torch_checkpoint_engine.py:23:save] [Torch] Saved ./checkpoints/checkpoint-31/global_step31/mp_rank_00_model_states.pt.
+[2024-12-08 17:08:29,196] [INFO] [torch_checkpoint_engine.py:21:save] [Torch] Saving ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_0_mp_rank_00_optim_states.pt...
+[2024-12-08 17:08:29,197] [INFO] [torch_checkpoint_engine.py:21:save] [Torch] Saving ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_1_mp_rank_00_optim_states.pt...
+[2024-12-08 17:08:35,081] [INFO] [torch_checkpoint_engine.py:23:save] [Torch] Saved ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_1_mp_rank_00_optim_states.pt.
+[2024-12-08 17:08:35,082] [INFO] [engine.py:3567:_save_zero_checkpoint] zero checkpoint saved ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_1_mp_rank_00_optim_states.pt
+[2024-12-08 17:08:35,083] [INFO] [torch_checkpoint_engine.py:33:commit] [Torch] Checkpoint global_step31 is ready now!
+[2024-12-08 17:08:35,138] [INFO] [torch_checkpoint_engine.py:23:save] [Torch] Saved ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_0_mp_rank_00_optim_states.pt.
+[2024-12-08 17:08:35,153] [INFO] [engine.py:3567:_save_zero_checkpoint] zero checkpoint saved ./checkpoints/checkpoint-31/global_step31/zero_pp_rank_0_mp_rank_00_optim_states.pt
+[2024-12-08 17:08:35,153] [INFO] [torch_checkpoint_engine.py:33:commit] [Torch] Checkpoint global_step31 is ready now!
+Final checkpoint saved at ./checkpoints/checkpoint-31Final checkpoint saved at ./checkpoints/checkpoint-31
+
+wandb:                                                                                
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:  iteration-time █▁
+wandb:   learning-rate █▁
+wandb:            loss █▁
+wandb:    memory-usage ▁▁
+wandb:      perplexity █▁▁
+wandb:      throughput ▁█
+wandb: validation_loss █▁▁
+wandb: 
+wandb: Run summary:
+wandb:  iteration-time 1.23054
+wandb:   learning-rate 0.0
+wandb:            loss 2.33227
+wandb:    memory-usage 651.70654
+wandb:      perplexity 9.86382
+wandb:      throughput 5.6882
+wandb: validation_loss 2.28887
+wandb: 
+wandb: 🚀 View run giddy-durian-17 at: https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed/runs/4ds5m5no
+wandb: ⭐️ View project at: https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20241208_170644-4ds5m5no/logs
+wandb: 
+wandb: Run history:
+wandb:       iteration-time █▁
+wandb:        learning-rate █▁
+wandb:                 loss █▁
+wandb:         memory-usage ▁▁
+wandb:           perplexity █▁▁
+wandb:           throughput ▁█
+wandb:    total_cpu_time_ms ▁
+wandb: total_device_time_ms ▁
+wandb:      validation_loss █▁▁
+wandb: 
+wandb: Run summary:
+wandb:       iteration-time 1.23287
+wandb:        learning-rate 0.0
+wandb:                 loss 2.33227
+wandb:         memory-usage 651.70654
+wandb:           perplexity 9.86382
+wandb:           throughput 5.67746
+wandb:    total_cpu_time_ms 93290.33275
+wandb: total_device_time_ms 98488.76288
+wandb:      validation_loss 2.28887
+wandb: 
+wandb: 🚀 View run swept-tree-18 at: https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed/runs/sgm0xz5w
+wandb: ⭐️ View project at: https://wandb.ai/ziyil0323/gpt2-benchmark%20deepspeed
+wandb: Synced 5 W&B file(s), 0 media file(s), 2 artifact file(s) and 1 other file(s)
+wandb: Find logs at: ./wandb/run-20241208_170644-sgm0xz5w/logs
+[2024-12-08 17:08:41,093] [INFO] [launch.py:351:main] Process 5884 exits successfully.
+[2024-12-08 17:08:41,093] [INFO] [launch.py:351:main] Process 5883 exits successfully.
+/bin/bash: line 7: --micro-batch-size: command not found
+/bin/bash: line 8: --global-batch-size: command not found
+/bin/bash: line 9: --train-iters: command not found
+/bin/bash: line 10: --log-interval: command not found
+/bin/bash: line 11: --eval-interval: command not found
+/bin/bash: line 12: --save-interval: command not found
+/bin/bash: line 13: --log-throughput: command not found
+/bin/bash: line 14: --log-timers-to-tensorboard: command not found
+/bin/bash: line 15: --num-gpus: command not found
+/bin/bash: line 16: --num-nodes: command not found
+/bin/bash: line 17: --seed: command not found

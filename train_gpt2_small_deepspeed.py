@@ -3,7 +3,7 @@ import math
 import argparse
 import time
 import torch
-import ctypes
+import ctypes, GPUtil, tabulate
 from torch.utils.data import DataLoader, Dataset
 from transformers import GPT2LMHeadModel, GPT2Config, GPT2Tokenizer
 import deepspeed
@@ -164,6 +164,23 @@ def create_train_val_dataloader(train_dataset, valid_dataset, micro_batch_size):
     )
     return train_dataloader, valid_dataloader
 
+def get_gpu_info():
+    gpus = GPUtil.getGPUs()
+    gpu_list = []
+    for gpu in gpus:
+        gpu_info = {
+            "ID": gpu.id,
+            "Name": gpu.name,
+            "Load (%)": f"{gpu.load * 100:.1f}%",
+            "Free Memory (MB)": f"{gpu.memoryFree:.1f}",
+            "Used Memory (MB)": f"{gpu.memoryUsed:.1f}",
+            "Total Memory (MB)": f"{gpu.memoryTotal:.1f}",
+            "Temperature (°C)": f"{gpu.temperature}°C"
+        }
+        gpu_list.append(gpu_info)
+    
+    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
     total_loss = 0.0
@@ -233,7 +250,13 @@ def setup_deepspeed(model, args):
                 "device": "cpu",  # Offload optimizer states to CPU
                 "pin_memory": True
             },
-            "overlap_comm": True
+        "overlap_comm": True,
+        "profiler": {
+            "enabled": True,
+            "profile_step": "15-30",
+            "module": "torch_profiler",
+            "output_path": f"./logs/profiler_logs_{time.strftime('%Y%m%d-%H%M%S')}"
+        }
         }
     }
     # Initialize DeepSpeed
@@ -321,7 +344,6 @@ def main():
 
     # PyTorch Profiler
     profiler_ranks = [int(rank) for rank in args.profile_ranks.split(',')]
-    profiler = None
     if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
@@ -355,6 +377,7 @@ def main():
 
             # WandB and TensorBoard logging
             if global_step % args.log_interval == 0 and global_step != 0:
+                elapsed_time = timers('interval-time').stop(barrier=args.framework is not None)
                 elapsed_time = timers('interval-time').elapsed(barrier=args.framework is not None)
 
                 # Log loss
@@ -385,13 +408,16 @@ def main():
                 mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
-                print(f"Memory usage: {mem_usage} MB")
+                print(f"Torch reports memory usage: {mem_usage} MB")
+                print(f"GPUtil reports memory usage: \n{get_gpu_info()}")
 
                 # Log time to tensorboard
                 if args.log_timers_to_tensorboard:
                     writer.add_scalar('iteration-time', elapsed_time_per_iteration, global_step)
                     if wandb_enabled: wandb.log({'iteration-time': elapsed_time_per_iteration}, global_step)
 
+                timers('interval-time', log_level=0).start(barrier=args.framework is not None)
+               
             # Validation
             if global_step % args.eval_interval == 0 and global_step != 0:
                 # Stop training timer and start interval timer
@@ -421,7 +447,7 @@ def main():
     pbar.close()
     
     # Stop PyTorch Profiler and log data
-    if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks:
+    if args.use_pytorch_profiler and model_engine.local_rank == 0:
         profiler.stop()
         key_averages = profiler.key_averages()
         
@@ -476,16 +502,13 @@ def main():
 
     # Save final model
     save_path = os.path.join(args.checkpoint_path, f'checkpoint-{global_step}')
-    if args.framework == 'deepspeed':
-        model_engine.save_checkpoint(save_path)
-    else:
-        torch.save(model_engine.state_dict(), save_path)
+    model_engine.save_checkpoint(save_path)
     print(f"Final checkpoint saved at {save_path}")
 
     writer.close()
     if wandb_enabled: wandb.finish()
 
-    if args.framework == 'torch' and torch.distributed.is_initialized():
+    if torch.distributed.is_initialized():
         torch.distributed.destroy_process_group()
 
 if __name__ == '__main__':
