@@ -391,7 +391,8 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput over steps {global_step}: {throughput}")
+                    print(f"elapsed_time_per_iteration: {elapsed_time_per_iteration}s")
+                    print(f"Throughput average on {args.log_interval}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
