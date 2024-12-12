@@ -4,7 +4,7 @@
 **Yihua Yang (yy5028)**
 ## Course
 **ECE 9143 High Performance Machine Learning, Fall 2024**
-## Objective
+## Project Description
 This project aims to benchmark the performance of four distributed training frameworks—PyTorch Data-Parallel (DP), PyTorch Distributed Data-Parallel (DDP), DeepSpeed stage 2, and DeepSpeed stage 3—by training a GPT-2 Small model (~124 million parameters) using a subset of the OSCAR 23.01 dataset (~100 MB). Key performance metrics include:
 
 * Communication overhead
@@ -17,16 +17,16 @@ This project aims to benchmark the performance of four distributed training fram
 The ultimate goal is to identify the most efficient framework for large language model training.
 
 ## Project Milestones and Completion Status
-## Milestone 1: Setting up the Training Environment and Dataset: (Completed)
+### Milestone 1: Setting up the Training Environment and Dataset: (Completed)
 - Subset the original OSCAR dataset and tokenize it using the GPT-2 tokenizer.
 - Configure distributed frameworks (Horovod, PyTorch DDP, and DeepSpeed) on the NYU HPC.
-## Training Implementation: (Completed)
+### Milestone 2: Training Implementation: (Completed)
 - Establish a single-GPU training baseline for comparison with distributed training.
 - Conduct distributed training experiments using consistent configurations across frameworks.
-## Profiling and Resource Monitoring: (Completed)
+### Milestone 3: Profiling and Resource Monitoring: (Completed)
 - Measure training time and evaluate speedup compared to the single-GPU baseline.
 - Monitor memory consumption and GPU utilization to identify potential bottlenecks.
-## Comparative Analysis: (Completed)
+### Milestone 4: Comparative Analysis: (Completed)
 - Compare distributed frameworks' performance in training time, memory consumption, GPU utilization, and speedup.
 - Analyze accuracy, evaluation loss, and perplexity (PPL) to assess the impact of optimizations by different frameworks.
 
@@ -97,7 +97,7 @@ Logs throughput, memory usage, loss, and other metrics to TensorBoard and WandB.
 12. Finalization
 Saves the final model checkpoint and cleans up resources (e.g., closing TensorBoard writers, WandB sessions).
 
-## How to Run
+## How to Execute the Code
 ### Set Up Environment
 Ensure you have the necessary environment modules loaded (e.g., Python, CUDA, PyTorch, DeepSpeed). Install the required Python packages listed in requirements.txt if needed.
 ```
