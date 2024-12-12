@@ -168,3 +168,6 @@ cython_debug/
 /gpt2_small
 *.zip
 /oscar_subsets
+/megatron_gpt2_small
+megatron_lm_scripts/gpt2-small_text_document.idx
+/catagorized_wandb
