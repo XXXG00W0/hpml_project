@@ -49,7 +49,7 @@ def parse_args():
     # Training parameters
     parser.add_argument('--micro-batch-size', type=int, default=8, help='Micro batch size per GPU')
     parser.add_argument('--global-batch-size', type=int, default=32, help='Global batch size across all GPUs')
-    parser.add_argument('--train-iters', type=int, default=20, help='500 Total number of training iterations')
+    parser.add_argument('--train-iters', type=int, default=31, help='500 Total number of training iterations')
     parser.add_argument('--train-val-split', type=float, default=0.9, help='Train-Validation split ratio')
     parser.add_argument('--eval-iters', type=int, default=10, help='Number of iterations for evaluation')
 
@@ -69,9 +69,9 @@ def parse_args():
     parser.add_argument('--clear-memory-interval', type=int, default=5, help='100 Interval for clearing unused memory')
 
     # Logging and checkpointing
-    parser.add_argument('--log-interval', type=int, default=10, help='100 Logging interval')
-    parser.add_argument('--eval-interval', type=int, default=10, help='1000 Evaluation interval')
-    parser.add_argument('--save-interval', type=int, default=10, help='1000 Checkpoint saving interval')
+    parser.add_argument('--log-interval', type=int, default=15, help='100 Logging interval')
+    parser.add_argument('--eval-interval', type=int, default=15, help='1000 Evaluation interval')
+    parser.add_argument('--save-interval', type=int, default=15, help='1000 Checkpoint saving interval')
     parser.add_argument('--wandb-project', type=str, default='gpt2-benchmark', help='WandB project name')
     parser.add_argument('--timing-log-level', type=int, default=0, choices=range(0,3), help='Timing log level (0-3)')
     parser.add_argument('--timing-log-option', type=str, default='minmax', choices=['max', 'minmax', 'all'], 
@@ -88,6 +88,7 @@ def parse_args():
     parser.add_argument('--use-pytorch-profiler', action='store_true', help='Enable PyTorch Profiler')
     parser.add_argument('--profile-ranks', type=str, default='0', help='Comma-separated ranks to profile')
     parser.add_argument('--world-size', type=int, default=None, help='World size for distributed training')
+    parser.add_argument('--local_rank', type=int, default=0, help='DeepSpeed required argument')
 
     # Miscellaneous
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
@@ -101,6 +102,7 @@ def parse_args():
 
     parser = deepspeed.add_config_arguments(parser)
     args = parser.parse_args()
+    return args
 
 def check_directory(args):
     chpt_run = f'{args.checkpoint_path}/run_{time.strftime("%Y%m%d-%H%M%S")}'   
@@ -179,7 +181,7 @@ def get_gpu_info():
         }
         gpu_list.append(gpu_info)
     
-    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+    return tabulate.tabulate(gpu_list, headers="keys", tablefmt="pretty")
 
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
@@ -219,7 +221,9 @@ def evaluate(model_engine, valid_dataloader, eval_iters, args):
 
 def setup_deepspeed(model, args):
     
+    world_size = args.num_gpus * args.num_nodes
     gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
+    warmup_num_steps = min(2000, int(args.train_iters * 0.1))
     deepspeed_config = {
         "train_batch_size": args.global_batch_size,
         "gradient_accumulation_steps": gradient_accumulation_steps,
@@ -235,28 +239,22 @@ def setup_deepspeed(model, args):
             }
         },
         "scheduler": {
-            "type": "WarmupCosine",
+            "type": "WarmupCosineLR",
             "params": {
-                "warmup_min_lr": args.min_lr,
-                "warmup_max_lr": args.lr,
+                "warmup_min_ratio": 0.1, 
+                "cos_min_ratio": 0.001,
                 "warmup_num_steps": warmup_num_steps,
                 "total_num_steps": args.train_iters
             }
         },
         "gradient_clipping": args.clip_grad,
         "zero_optimization": {
-            "stage": 2,  # ZeRO Stage 2 for optimizer state partitioning
+            "stage": 3,  # ZeRO Stage 2 for optimizer state partitioning
             "offload_optimizer": {
                 "device": "cpu",  # Offload optimizer states to CPU
                 "pin_memory": True
             },
-        "overlap_comm": True,
-        "profiler": {
-            "enabled": True,
-            "profile_step": "15-30",
-            "module": "torch_profiler",
-            "output_path": f"./logs/profiler_logs_{time.strftime('%Y%m%d-%H%M%S')}"
-        }
+        "overlap_comm": True
         }
     }
     # Initialize DeepSpeed
@@ -266,10 +264,6 @@ def setup_deepspeed(model, args):
         model_parameters=model.parameters(),
         config_params=deepspeed_config
     )
-
-    world_size = args.num_gpus * args.num_nodes
-    gradient_accumulation_steps = args.global_batch_size // (args.micro_batch_size * world_size)
-    warmup_num_steps = min(2000, int(args.train_iters * 0.1))
     return model_engine, optimizer
 
 def create_warmup_cosine_schedule(args, optimizer):
@@ -298,7 +292,20 @@ def main():
 
     args = parse_args()
     check_directory(args)
-    torch.manual_seed(args.seed)    
+    torch.manual_seed(args.seed)
+    args.micro_batch_size = 8
+    args.global_batch_size = 8
+    args.train_iters = 31
+    args.log_interval = 15
+    args.eval_interval = 15
+    args.save_interval = 15
+    args.use_pytorch_profiler = True
+    args.log_timers_to_tensorboard = True
+    args.log_throughput = True
+    args.num_gpus=1
+    args.num_nodes=1
+    args.seed = 42
+    print(f"DeepSpeed specified local rank: {args.local_rank}; sbatch specified local rank: {local_rank}")
 
     if args.world_size is None or args.world_size != args.num_gpus * args.num_nodes:
         args.world_size = args.num_gpus * args.num_nodes
@@ -343,11 +350,11 @@ def main():
         print(f"Error initializing WandB: {e}")
 
     # PyTorch Profiler
-    profiler_ranks = [int(rank) for rank in args.profile_ranks.split(',')]
+    profiler_ranks = [0]
     if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-            schedule=torch.profiler.schedule(wait=10, warmup=5, active=10, repeat=10),
+            schedule=torch.profiler.schedule(wait=10, warmup=5, active=15, repeat=1),
             record_shapes=True, 
             profile_memory=True, 
             with_stack=False,
@@ -372,6 +379,7 @@ def main():
             loss = train_step_deepspeed(model_engine, batch)
 
             # Profiler
+            # if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks and not (global_step % args.log_interval == 0　 and global_step != 0):
             if args.use_pytorch_profiler:
                 profiler.step()
 
@@ -386,13 +394,15 @@ def main():
                 print(f"Step {global_step}: loss {loss.item()}")
 
                 # Log learning rate
-                learning_rate = model_engine.lr_scheduler.get_last_lr()
-                if wandb_enabled: wandb.log({'learning-rate': learning_rate}, step=global_step)
-                writer.add_scalar('Learning-rate', learning_rate, global_step)
-                print(f"Learning rate: {learning_rate}")
+                learning_rates = model_engine.lr_scheduler.get_last_lr()
+                average_lr = sum(learning_rates) / len(learning_rates)
+                if wandb_enabled:
+                    wandb.log({'learning-rate': average_lr}, step=global_step)
+                writer.add_scalar('Learning-rate', average_lr, global_step)
+                print(f"Average learning rate: {average_lr}")
 
                 # Log throughput
-                if args.log_throughput:
+                if args.log_throughput or 1:
                     elapsed_time_per_iteration = elapsed_time / global_step
                     batch_size = args.micro_batch_size * args.world_size
 
@@ -400,12 +410,13 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"Throughput over steps {global_step}: {throughput}")
+                    print(f"elapsed_time_per_iteration: {elapsed_time_per_iteration}s")
+                    print(f"Throughput average on {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
                 # Log memory usage
-                mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
+                mem_usage = torch.cuda.memory_allocated(torch.cuda.current_device()) / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
                 print(f"Torch reports memory usage: {mem_usage} MB")
@@ -443,6 +454,10 @@ def main():
 
             global_step += 1
             pbar.update(1)
+
+            # Profiler
+            # if args.use_pytorch_profiler and model_engine.local_rank in profiler_ranks and (global_step % args.log_interval == 0　 and global_step != 0):
+            #     profiler.step()
 
     pbar.close()
     

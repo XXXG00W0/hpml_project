@@ -31,7 +31,8 @@ The ultimate goal is to identify the most efficient framework for large language
 - Analyze accuracy, evaluation loss, and perplexity (PPL) to assess the impact of optimizations by different frameworks.
 
 ## Repository Structure
-The repository is organized as follows:
+The repository is organized as follows: 
+(Please note that the actual repository structure may differ slightly based on the project's progress and updates)
 ```
 documents/                          # Project data visualization
 logs/                               # Profiling logs and outputs
@@ -60,30 +61,30 @@ Essential libraries for machine learning, such as torch, transformers, and wandb
 Utility libraries for GPU monitoring, argument parsing, data handling, and logging.
 Custom modules like Timers and utility functions.
 2. Argument Parsing
-parse_args() defines a comprehensive list of command-line arguments for:
+`parse_args()` defines a comprehensive list of command-line arguments for:
 Model and data paths: Paths to model, vocabulary, merge files, checkpoints, etc.
 Model parameters: Configuration like sequence length, hidden size, number of layers.
 Training parameters: Batch sizes, learning rate, and gradient clipping.
 Logging and checkpointing: Logging intervals, TensorBoard paths, and WandB settings.
 Distributed training: Number of GPUs, nodes, and distributed framework configurations.
 3. Directory Management
-check_directory(args) ensures the required directories (e.g., for checkpoints and TensorBoard logs) exist and creates them if necessary.
+`check_directory(args)` ensures the required directories (e.g., for checkpoints and TensorBoard logs) exist and creates them if necessary.
 4. Dataset Preparation
-TextDataset class: Reads and tokenizes the dataset into fixed-size blocks for training.
-create_datasets: Splits the dataset into training and validation sets.
-create_train_val_dataloader: Creates PyTorch DataLoaders for both sets with batching and multi-threaded data loading.
+`TextDataset` class: Reads and tokenizes the dataset into fixed-size blocks for training.
+`create_datasets`: Splits the dataset into training and validation sets.
+`create_train_val_dataloader`: Creates PyTorch DataLoaders for both sets with batching and multi-threaded data loading.
 5. GPU Monitoring
-get_gpu_info: Collects and displays GPU usage statistics such as memory usage and temperature.
+`get_gpu_info`: Collects and displays GPU usage statistics such as memory usage and temperature.
 6. Evaluation
-evaluate: Computes average loss and perplexity on the validation set while managing GPU memory.
+`evaluate`: Computes average loss and perplexity on the validation set while managing GPU memory.
 7. Learning Rate Scheduler
-create_warmup_cosine_schedule: Combines a warmup phase with a cosine decay for learning rate adjustment.
+`create_warmup_cosine_schedule`: Combines a warmup phase with a cosine decay for learning rate adjustment.
 8. Model Setup
-setup_no_distributed: Moves the model to GPU and sets up optimizers, schedulers, and mixed precision (FP16) support.
+`setup_no_distributed`: Moves the model to GPU and sets up optimizers, schedulers, and mixed precision (FP16) support.
 9. Training Step
-train_step_torch: Handles a single training iteration, including loss computation, gradient scaling, and memory management.
+`train_step_torch`: Handles a single training iteration, including loss computation, gradient scaling, and memory management.
 10. Main Training Loop
-main: Orchestrates the training process:
+`main`: Orchestrates the training process:
 Parses arguments and initializes logging (e.g., TensorBoard, WandB).
 Loads datasets and model configurations.
 Executes the training loop, which includes:
@@ -95,7 +96,6 @@ Integrated with PyTorch Profiler and TensorBoard for detailed performance insigh
 Logs throughput, memory usage, loss, and other metrics to TensorBoard and WandB.
 12. Finalization
 Saves the final model checkpoint and cleans up resources (e.g., closing TensorBoard writers, WandB sessions).
-
 
 ## How to Run
 ### Set Up Environment
@@ -109,17 +109,18 @@ Our SBATCH scripts are configured for a multi-GPU L4 platform on NYU HPC. If you
 
 Some key parameters to modify include:
 ```
-$WORLD_SIZE: Number of GPUs to use for training
-CUDA_VISIBLE_DEVICES=0,1,2,3: List of GPU IDs to use for training
---num-gpus: Number of GPUs to use for training
---framework: Distributed training framework (dp, ddp, deepspeed, none)
---nproc_per_node=2 : Number of GPUs per node
-
+$WORLD_SIZE=4:                  Number of GPUs to use for training
+CUDA_VISIBLE_DEVICES=0,1,2,3:   List of GPU IDs to use for training
+--num-gpus 4:                   Number of GPUs to use for training
+--framework dp:                 Distributed training framework (dp, ddp, deepspeed, none)
+--nproc_per_node=4:             Number of GPUs per node
+```
 ### Submit the SBATCH Script
 Use the sbatch command to submit the job to the SLURM queue. For example:
 ```
 sbatch train_gpt2_small_ddp.sbatch
 ```
+
 ### Outputs and Logs
 After the job completes, logs will be saved to the specified output file in the SBATCH script. Profiling data (e.g., GPU utilization, communication times) will be stored in the ```logs/``` directory.
 
@@ -128,8 +129,8 @@ After the job completes, logs will be saved to the specified output file in the 
 | # of GPU | PyTorch Baseline | DDP   | DeepSpeed Stage 2 | DeepSpeed Stage 3 |
 |----------|------------------|-------|-------------------|-------------------|
 | 1        | 1.0              | 1.0   | 1.0               | 1.0               |
-| 2        | 2.246            | 1.910 | 1.466             | 1.575             |
-| 4        | 3.881            | 3.653 | 3.76              | 2.472             |
+| 2        | 2.319            | 1.910 | 1.466             | 1.575             |
+| 4        | 4.789            | 3.653 | 3.76              | 2.472             |
 
 ### Throughput
 ![image](https://github.com/user-attachments/assets/1a521ff6-a02d-4c63-b1fe-5b0cdd9fe658)

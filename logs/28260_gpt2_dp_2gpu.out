@@ -1,0 +1,124 @@
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: ziyil0323. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.18.7
+wandb: Run data is saved locally in /scratch/zl5604/project/wandb/run-20241211_224139-gtjggcj8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run lemon-surf-27
+wandb: ⭐️ View project at https://wandb.ai/ziyil0323/gpt2-benchmark
+wandb: 🚀 View run at https://wandb.ai/ziyil0323/gpt2-benchmark/runs/gtjggcj8
+Current working directory: /scratch/zl5604/project
+TensorBoard logs path: ./tb_logs
+Profiler initialized
+Training:   0%|                                                  | 0/31 [00:00<?, ?it/s]/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+Training:   3%|█▎                                        | 1/31 [00:05<02:57,  5.91s/it]/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/optim/lr_scheduler.py:240: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Training:  10%|████                                      | 3/31 [00:06<00:52,  1.86s/it]Training:  13%|█████▍                                    | 4/31 [00:07<00:39,  1.48s/it]Training:  16%|██████▊                                   | 5/31 [00:09<00:38,  1.49s/it]Training:  19%|████████▏                                 | 6/31 [00:09<00:28,  1.14s/it]Training:  23%|█████████▍                                | 7/31 [00:09<00:22,  1.07it/s]Training:  26%|██████████▊                               | 8/31 [00:10<00:20,  1.13it/s]Training:  29%|████████████▏                             | 9/31 [00:11<00:18,  1.17it/s]Training:  32%|█████████████▏                           | 10/31 [00:12<00:17,  1.20it/s][W1211 22:41:54.620677203 CPUAllocator.cpp:249] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event
+Training:  35%|██████████████▌                          | 11/31 [00:13<00:18,  1.09it/s]Training:  39%|███████████████▊                         | 12/31 [00:13<00:15,  1.27it/s]Training:  42%|█████████████████▏                       | 13/31 [00:14<00:14,  1.28it/s]Training:  45%|██████████████████▌                      | 14/31 [00:15<00:13,  1.27it/s]Training:  48%|███████████████████▊                     | 15/31 [00:16<00:12,  1.28it/s]Step 15: loss 2.5382838249206543
+Learning rate: 8.339733570774807e-05
+elapsed_time_per_iteration: 1.179716157913208 s
+Throughput average on 15: 5.933257187204652
+Torch reports memory usage: 1946.46044921875 MB
+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |     10574.0      |     12021.0      |      23034.0      |      63.0°C      |
+| 1  | NVIDIA L4 |  100.0%  |     14602.0      |      7993.0      |      23034.0      |      54.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+
+Validation:   0%|                                                | 0/10 [00:00<?, ?it/s][A/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+
+Validation:  10%|████                                    | 1/10 [00:00<00:04,  2.21it/s][A
+Validation:  20%|████████                                | 2/10 [00:00<00:03,  2.55it/s][A
+Validation:  30%|████████████                            | 3/10 [00:01<00:02,  2.68it/s][A
+Validation:  40%|████████████████                        | 4/10 [00:01<00:02,  2.74it/s][A
+Validation:  50%|████████████████████                    | 5/10 [00:01<00:01,  2.79it/s][A
+Validation:  60%|████████████████████████                | 6/10 [00:02<00:01,  2.81it/s][A
+Validation:  70%|████████████████████████████            | 7/10 [00:02<00:01,  2.83it/s][A
+Validation:  80%|████████████████████████████████        | 8/10 [00:02<00:00,  2.83it/s][A
+Validation:  90%|████████████████████████████████████    | 9/10 [00:03<00:00,  2.85it/s][A
+Validation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.86it/s][AValidation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.76it/s]
+Training:  52%|█████████████████████▏                   | 16/31 [00:26<00:55,  3.72s/it]Training:  55%|██████████████████████▍                  | 17/31 [00:27<00:38,  2.78s/it]Training:  58%|███████████████████████▊                 | 18/31 [00:27<00:26,  2.07s/it][W1211 22:42:09.783690741 CPUAllocator.cpp:249] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event
+Training:  61%|█████████████████████████▏               | 19/31 [00:28<00:20,  1.68s/it]Training:  65%|██████████████████████████▍              | 20/31 [00:34<00:32,  2.95s/it]Training:  68%|███████████████████████████▊             | 21/31 [00:34<00:21,  2.19s/it]Training:  71%|█████████████████████████████            | 22/31 [00:35<00:15,  1.68s/it]Training:  74%|██████████████████████████████▍          | 23/31 [00:36<00:11,  1.41s/it]Training:  77%|███████████████████████████████▋         | 24/31 [00:36<00:08,  1.22s/it]Training:  81%|█████████████████████████████████        | 25/31 [00:37<00:06,  1.09s/it]Training:  84%|██████████████████████████████████▍      | 26/31 [00:38<00:05,  1.10s/it]Training:  87%|███████████████████████████████████▋     | 27/31 [00:39<00:03,  1.09it/s]Training:  90%|█████████████████████████████████████    | 28/31 [00:40<00:02,  1.14it/s]Training:  94%|██████████████████████████████████████▎  | 29/31 [00:40<00:01,  1.17it/s]Training:  97%|███████████████████████████████████████▋ | 30/31 [00:41<00:00,  1.20it/s]Validation loss: 2.295305633544922, Perplexity: 9.927469716422394
+Checkpoint saved at ./checkpoints/checkpoint-15
+Step 30: loss 2.329969882965088
+Learning rate: 0.0
+elapsed_time_per_iteration: 0.7211076259613037 s
+Throughput average on 30: 9.706677784011692
+Torch reports memory usage: 1946.47216796875 MB
+GPUtil reports memory usage: 
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| ID |   Name    | Load (%) | Free Memory (MB) | Used Memory (MB) | Total Memory (MB) | Temperature (°C) |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+| 0  | NVIDIA L4 |  100.0%  |     11024.0      |     11571.0      |      23034.0      |      67.0°C      |
+| 1  | NVIDIA L4 |  97.0%   |     14466.0      |      8129.0      |      23034.0      |      59.0°C      |
++----+-----------+----------+------------------+------------------+-------------------+------------------+
+
+Validation:   0%|                                                | 0/10 [00:00<?, ?it/s][A/ext3/miniforge3/envs/deepspeed/lib/python3.12/site-packages/torch/nn/parallel/_functions.py:71: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn(
+
+Validation:  10%|████                                    | 1/10 [00:00<00:03,  2.28it/s][A
+Validation:  20%|████████                                | 2/10 [00:00<00:03,  2.59it/s][A
+Validation:  30%|████████████                            | 3/10 [00:01<00:02,  2.70it/s][A
+Validation:  40%|████████████████                        | 4/10 [00:01<00:02,  2.76it/s][A
+Validation:  50%|████████████████████                    | 5/10 [00:01<00:01,  2.79it/s][A
+Validation:  60%|████████████████████████                | 6/10 [00:02<00:01,  2.81it/s][A
+Validation:  70%|████████████████████████████            | 7/10 [00:02<00:01,  2.83it/s][A
+Validation:  80%|████████████████████████████████        | 8/10 [00:02<00:00,  2.84it/s][A
+Validation:  90%|████████████████████████████████████    | 9/10 [00:03<00:00,  2.84it/s][A
+Validation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.85it/s][AValidation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.76it/s]
+Training: 100%|█████████████████████████████████████████| 31/31 [00:52<00:00,  3.80s/it]Training: 100%|█████████████████████████████████████████| 31/31 [00:52<00:00,  1.69s/it]
+Validation loss: 2.2836000680923463, Perplexity: 9.81194055610223
+Checkpoint saved at ./checkpoints/checkpoint-30
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                          ProfilerStep*         0.00%       0.000us         0.00%       0.000us       0.000us       16.625s        80.90%       16.625s        1.662s           0 b           0 b           0 b           0 b            10  
+                                   DataParallel.forward         0.00%       0.000us         0.00%       0.000us       0.000us       14.009s        68.17%       14.009s     350.218ms           0 b           0 b           0 b           0 b            40  
+                                               aten::mm         0.32%      61.401ms         0.51%      98.315ms      50.161us        3.335s        16.23%        3.335s       1.702ms         -40 b          24 b      13.57 Gb      19.12 Gb          1960  
+                                            aten::copy_         0.21%      39.767ms        28.98%        5.553s       3.564ms        3.098s        15.08%        3.098s       1.989ms           8 b           8 b     242.63 Mb     451.09 Mb          1558  
+ncclDevKernel_Broadcast_RING_LL(ncclDevComm*, unsign...         0.00%       0.000us         0.00%       0.000us       0.000us        1.889s         9.19%        1.889s       1.687ms           0 b           0 b           0 b           0 b          1120  
+                         Memcpy PtoP (Device -> Device)         0.00%       0.000us         0.00%       0.000us       0.000us        1.747s         8.50%        1.747s      18.781ms           0 b           0 b           0 b           0 b            93  
+                                 ampere_sgemm_128x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us        1.445s         7.03%        1.445s       1.369ms           0 b           0 b           0 b           0 b          1056  
+void at::native::elementwise_kernel<128, 2, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us        1.407s         6.85%        1.407s       1.054ms           0 b           0 b           0 b           0 b          1336  
+                                ampere_sgemm_128x128_tn         0.00%       0.000us         0.00%       0.000us       0.000us        1.299s         6.32%        1.299s      30.924ms           0 b           0 b           0 b           0 b            42  
+void cutlass::Kernel<cutlass_80_simt_sgemm_256x128_8...         0.00%       0.000us         0.00%       0.000us       0.000us        1.217s         5.92%        1.217s       2.349ms           0 b           0 b           0 b           0 b           518  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 19.159s
+Self CUDA time total: 20.549s
+
+Total Device Time: 91392.07 ms
+Total CPU Time: 57556.55 ms
+Validation:   0%|                                                | 0/10 [00:00<?, ?it/s]Validation:  10%|████                                    | 1/10 [00:00<00:04,  2.14it/s]Validation:  20%|████████                                | 2/10 [00:00<00:03,  2.50it/s]Validation:  30%|████████████                            | 3/10 [00:01<00:02,  2.65it/s]Validation:  40%|████████████████                        | 4/10 [00:01<00:02,  2.73it/s]Validation:  50%|████████████████████                    | 5/10 [00:01<00:01,  2.77it/s]Validation:  60%|████████████████████████                | 6/10 [00:02<00:01,  2.79it/s]Validation:  70%|████████████████████████████            | 7/10 [00:02<00:01,  2.82it/s]Validation:  80%|████████████████████████████████        | 8/10 [00:02<00:00,  2.82it/s]Validation:  90%|████████████████████████████████████    | 9/10 [00:03<00:00,  2.83it/s]Validation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.83it/s]Validation: 100%|███████████████████████████████████████| 10/10 [00:03<00:00,  2.72it/s]
+wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:       iteration-time █▁
+wandb:        learning-rate █▁
+wandb:                 loss █▁
+wandb:         memory-usage ▁█
+wandb:           perplexity █▁▁
+wandb:           throughput ▁█
+wandb:    total_cpu_time_ms ▁
+wandb: total_device_time_ms ▁
+wandb:      validation_loss █▁▁
+wandb: 
+wandb: Run summary:
+wandb:       iteration-time 0.72111
+wandb:        learning-rate 0
+wandb:                 loss 2.32997
+wandb:         memory-usage 1946.47217
+wandb:           perplexity 9.81194
+wandb:           throughput 9.70668
+wandb:    total_cpu_time_ms 57556.55366
+wandb: total_device_time_ms 91392.06504
+wandb:      validation_loss 2.2836
+wandb: 
+wandb: 🚀 View run lemon-surf-27 at: https://wandb.ai/ziyil0323/gpt2-benchmark/runs/gtjggcj8
+wandb: ⭐️ View project at: https://wandb.ai/ziyil0323/gpt2-benchmark
+wandb: Synced 5 W&B file(s), 0 media file(s), 2 artifact file(s) and 1 other file(s)
+wandb: Find logs at: ./wandb/run-20241211_224139-gtjggcj8/logs
+Final Validation loss: 2.2836000680923463, Perplexity: 9.81194055610223
+Final checkpoint saved at ./checkpoints/checkpoint-31

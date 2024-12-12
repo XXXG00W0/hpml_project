@@ -179,7 +179,7 @@ def get_gpu_info():
         }
         gpu_list.append(gpu_info)
     
-    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+    return tabulate.tabulate(gpu_list, headers="keys", tablefmt="pretty")
 
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
@@ -199,7 +199,8 @@ def evaluate(model_engine, valid_dataloader, eval_iters, args):
             
             outputs = model_engine(input_ids=input_ids, labels=labels)
             loss = outputs.loss
-
+            if loss.dim() > 0:
+                loss = loss.mean()
             total_loss += loss.item()
             total_steps += 1
             pbar.update(1)
@@ -242,8 +243,9 @@ def setup_no_distributed(model, args):
 
 def train_step_torch(model_engine, batch, optimizer, scheduler, scaler, args, global_step):
 
-    input_ids = batch['input_ids'].to(model_engine.device)
-    labels = batch['labels'].to(model_engine.device)
+    device = model_engine.module.device if args.framework == 'dp' else model_engine.device
+    input_ids = batch['input_ids'].to(device)
+    labels = batch['labels'].to(device)
 
     with torch.autocast(device_type='cuda', enabled=args.use_fp16, dtype=torch.float16):
         outputs = model_engine(input_ids=input_ids, labels=labels)
@@ -259,6 +261,8 @@ def train_step_torch(model_engine, batch, optimizer, scheduler, scaler, args, gl
     if args.use_fp16:
         scaler.scale(loss).backward()
     else:
+        if loss.dim() > 0:
+            loss = loss.mean()
         loss.backward()
 
     if args.clip_grad is not None:
@@ -337,7 +341,7 @@ def main():
     if args.use_pytorch_profiler:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-            schedule=torch.profiler.schedule(wait=10, warmup=5, active=15, repeat=1),
+            schedule=torch.profiler.schedule(wait=5, warmup=5, active=10, repeat=1),
             record_shapes=True, 
             profile_memory=True, 
             with_stack=False,
@@ -351,7 +355,8 @@ def main():
     # Timers
     timers = Timers(args.timing_log_level, args.timing_log_option)
     # Distribute training require barrier before starting the timer
-    timers('interval-time', log_level=0).start(barrier=args.framework is not None)
+    torch.cuda.synchronize()
+    timers('interval-time', log_level=0).start()
 
     # Training loop
     while global_step < args.train_iters:
@@ -363,13 +368,15 @@ def main():
             loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
 
             # Profiler
+            # if args.use_pytorch_profiler and not (global_step % args.log_interval == 0 and global_step != 0):
             if args.use_pytorch_profiler:
                 profiler.step()
 
             # WandB and TensorBoard logging
             if global_step % args.log_interval == 0 and global_step != 0:
-                elapsed_time = timers('interval-time').stop(barrier=args.framework is not None)
-                elapsed_time = timers('interval-time').elapsed(barrier=args.framework is not None)
+                torch.cuda.synchronize()
+                elapsed_time = timers('interval-time').stop()
+                elapsed_time = timers('interval-time').elapsed()
 
                 # Log loss
                 if wandb_enabled: wandb.log({'loss': loss.item()}, step=global_step)
@@ -391,13 +398,13 @@ def main():
                         elapsed_time_per_iteration * 10**12 * args.world_size)
                     if wandb_enabled: wandb.log({'throughput': throughput}, step=global_step)
                     writer.add_scalar('Throughput', throughput, global_step)
-                    print(f"elapsed_time_per_iteration: {elapsed_time_per_iteration}s")
-                    print(f"Throughput average on {args.log_interval}: {throughput}")
+                    print(f"elapsed_time_per_iteration: {elapsed_time_per_iteration} s")
+                    print(f"Throughput average on {global_step}: {throughput}")
                 # Log loss scale
                 # to-do: log loss scale
 
                 # Log memory usage
-                mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
+                mem_usage = torch.cuda.memory_allocated(torch.cuda.current_device()) / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
                 print(f"Torch reports memory usage: {mem_usage} MB")
@@ -409,21 +416,25 @@ def main():
                     if wandb_enabled: wandb.log({'iteration-time': elapsed_time_per_iteration}, global_step)
 
                 # Resume training timer
-                timers('interval-time', log_level=0).start(barrier=args.framework is not None)
+                torch.cuda.synchronize()
+                timers('interval-time', log_level=0).start()
 
             # Validation
             if global_step % args.eval_interval == 0 and global_step != 0:
                 # Stop training timer and start interval timer
+                torch.cuda.synchronize()
                 timers('interval-time').stop()
-                timers('eval-time', log_level=0).start(barrier=args.framework is not None)
+                timers('eval-time', log_level=0).start()
                 avg_loss, perplexity = evaluate(model_engine, valid_dataloader, args.eval_iters, args)
+                torch.cuda.synchronize()
                 timers('eval-time').stop()
                 if wandb_enabled: wandb.log({'validation_loss': avg_loss, 'perplexity': perplexity}, step=global_step)
                 writer.add_scalar('Loss/valid', avg_loss, global_step)
                 writer.add_scalar('Perplexity/valid', perplexity, global_step)
                 print(f"Validation loss: {avg_loss}, Perplexity: {perplexity}")
                 # Resume training timer
-                timers('interval-time', log_level=0).start(barrier=args.framework is not None)
+                torch.cuda.synchronize()
+                timers('interval-time', log_level=0).start()
 
             # Save checkpoint
             if global_step % args.save_interval == 0 and global_step != 0:
@@ -436,6 +447,9 @@ def main():
 
             global_step += 1
             pbar.update(1)
+
+            # if args.use_pytorch_profiler and (global_step % args.log_interval == 0 and global_step != 0):
+            #     profiler.step()
 
     pbar.close()
     

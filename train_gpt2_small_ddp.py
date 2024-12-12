@@ -180,7 +180,7 @@ def get_gpu_info():
         }
         gpu_list.append(gpu_info)
     
-    return tabulate(gpu_list, headers="keys", tablefmt="pretty")
+    return tabulate.tabulate(gpu_list, headers="keys", tablefmt="pretty")
 
 def evaluate(model_engine, valid_dataloader, eval_iters, args):
     model_engine.eval()
@@ -231,6 +231,7 @@ def create_warmup_cosine_schedule(args, optimizer):
 
 def setup_ddp(model, args):
     torch.distributed.init_process_group(backend='nccl')
+    print(f"local rank: {local_rank}") 
     torch.cuda.set_device(local_rank)
     model = model.to('cuda')
     model = DDP(model, device_ids=[local_rank])
@@ -341,7 +342,7 @@ def main():
     if args.use_pytorch_profiler and torch.distributed.get_rank() in profiler_ranks:
         profiler = profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-            schedule=torch.profiler.schedule(wait=5, warmup=5, active=10, repeat=1),
+            schedule=torch.profiler.schedule(wait=5, warmup=10, active=15, repeat=1),
             record_shapes=True, 
             profile_memory=True, 
             with_stack=False,
@@ -367,7 +368,7 @@ def main():
             loss = train_step_torch(model_engine, batch, optimizer, scheduler, scalar, args, global_step)
 
             # Profiler only active on rank 0
-            if args.use_pytorch_profiler and torch.distributed.get_rank() == 0:
+            if args.use_pytorch_profiler and torch.distributed.get_rank() == 0 and not (global_step % args.log_interval == 0 and global_step != 0):
                 profiler.step()
 
             # WandB and TensorBoard logging
@@ -401,7 +402,7 @@ def main():
                 # to-do: log loss scale
 
                 # Log memory usage
-                mem_usage = torch.cuda.memory_allocated() / (1024 ** 2)
+                mem_usage = torch.cuda.memory_allocated(torch.cuda.current_device()) / (1024 ** 2)
                 if wandb_enabled: wandb.log({'memory-usage': mem_usage}, step=global_step)
                 writer.add_scalar('Memory-usage', mem_usage, global_step)
                 print(f"Torch reports memory usage: {mem_usage} MB")
@@ -439,6 +440,10 @@ def main():
 
             global_step += 1
             pbar.update(1)
+
+            # Profiler only active on rank 0
+            if args.use_pytorch_profiler and torch.distributed.get_rank() == 0 and (global_step % args.log_interval == 0 and global_step != 0):
+                profiler.step()
 
     pbar.close()
     
