@@ -133,13 +133,13 @@ After the job completes, logs will be saved to the specified output file in the 
 | 4        | 4.789            | 3.653 | 3.76              | 2.472             |
 
 ### Throughput
-![image](https://github.com/user-attachments/assets/1a521ff6-a02d-4c63-b1fe-5b0cdd9fe658)
+![image](documents/throughput vs GPU.png)
 
 ### Total Time
-![image](https://github.com/user-attachments/assets/e0f80cb3-12e6-446e-a031-55a835a48abc)
+![image](documents/total CPU and CUDA time VS runs.png)
 
 ### Total Communication Time
-![image](https://github.com/user-attachments/assets/7a82316a-f1ae-4d46-8ccb-f44bc9110f4b)
+![image](documents/Total Comm Time VS runs.png)
 
 ## Summary
 We evaluated the performance of PyTorch Baseline, Distributed Data Parallel (DDP), and DeepSpeed (Stages 2 and 3) on a GPT-2 Small model across 1, 2, and 4 GPUs. The key findings are:
